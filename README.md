@@ -2,7 +2,7 @@
 
 A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. DFlash2 is the default serving mode; no-spec is retained as the benchmark control and operational fallback.
 
-![Qwen3.8-27B DFlash2 result on one DGX Spark](assets/qwen38-dflash2-result.png)
+![Qwen3.8-27B DFlash2 result on one DGX Spark](assets/qwen38-dflash2-result-v2.png)
 
 ## Measured comparison
 
