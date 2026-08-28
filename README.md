@@ -22,7 +22,7 @@ One fixed-order paired sweep used 27 requests per arm: three repetitions across 
 
 The tok/s metric is completion tokens divided by whole request wall time, including prefill and first-token latency. It is not post-first-token decode speed.
 
-The frozen quality gate did not pass because its lexical prose checker rejected all three prose rows in both arms. Post-hoc inspection found both arms produced three semantically correct sentences, but the frozen result remains **24/27**, not 27/27. Code, JSON, math, reasoning, tools, and exact-copy checks passed in both arms.
+The frozen quality gate did not pass because its lexical prose checker rejected all three prose rows in both arms. The checker accepted the requested three-sentence structure and the `draft`, `target`, verification, and throughput concepts, but its literal substring rules did not accept `increasing` for `increase` or `without altering` for `preserv`. The original six outputs, hashes, and term-by-term predicate decisions are published in [`evidence/prose-checker-results.json`](evidence/prose-checker-results.json) so readers can inspect them directly. The frozen result remains **24/27**, not 27/27. Code, JSON, math, reasoning, tools, and exact-copy checks passed in both arms.
 
 Only **15/27** paired outputs were byte-identical. DFlash2 is therefore an explicit opt-in, not the default, and this repository does not claim exact numerical equivalence or broad quality parity.
 

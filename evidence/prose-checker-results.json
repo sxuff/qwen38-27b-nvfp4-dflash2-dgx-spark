@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "evidence_label": "accepted v1 run, frozen checker disclosure",
+  "prompt": "In exactly three concise sentences, explain how speculative decoding uses a draft model and target verification to increase throughput while preserving target-model behavior.",
+  "frozen_result": {
+    "no-spec": "0/3 prose rows passed",
+    "dflash2": "0/3 prose rows passed",
+    "overall_quality": "24/27 in each arm"
+  },
+  "checker_rule": "exactly 3 sentences and contains: draft; target; verif|accept; throughput|faster|speed; increase|boost|improv; literal stem preserv",
+  "interpretation_boundary": "These are the original outputs and frozen predicate decisions. They are published for reader inspection. The v1 pass/fail labels are not changed post hoc.",
+  "rows": [
+    {
+      "arm": "no-spec",
+      "fixture_id": "prose",
+      "repetition": 0,
+      "payload_sha256": "5717bd23884e888ea36cbb059da495ea9d36b50eaa74aa41b5304f4f84c5bc79",
+      "content_sha256": "e44e1aa71882b832648b848b583bb57ab223c3d0cf2a3d0e9d499f5a31a8f7ef",
+      "content": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own probability distribution. This process allows the system to generate multiple tokens per forward pass of the expensive target model, significantly increasing throughput without altering the final output distribution.",
+      "quality_pass": false,
+      "quality_detail": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own probability distribution. This process allows the system to generate multiple tokens per forward pass of the expensive target model, significantly increasing throughput without altering the final output distribution.",
+      "frozen_checker_components": {
+        "exactly_three_sentences": true,
+        "mentions_draft": true,
+        "mentions_target": true,
+        "mentions_verification": true,
+        "mentions_speed": true,
+        "mentions_increase": false,
+        "contains_literal_preserv_stem": false
+      },
+      "frozen_checker_failed_components": [
+        "mentions_increase",
+        "contains_literal_preserv_stem"
+      ]
+    },
+    {
+      "arm": "no-spec",
+      "fixture_id": "prose",
+      "repetition": 1,
+      "payload_sha256": "5717bd23884e888ea36cbb059da495ea9d36b50eaa74aa41b5304f4f84c5bc79",
+      "content_sha256": "e44e1aa71882b832648b848b583bb57ab223c3d0cf2a3d0e9d499f5a31a8f7ef",
+      "content": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own probability distribution. This process allows the system to generate multiple tokens per forward pass of the expensive target model, significantly increasing throughput without altering the final output distribution.",
+      "quality_pass": false,
+      "quality_detail": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own probability distribution. This process allows the system to generate multiple tokens per forward pass of the expensive target model, significantly increasing throughput without altering the final output distribution.",
+      "frozen_checker_components": {
+        "exactly_three_sentences": true,
+        "mentions_draft": true,
+        "mentions_target": true,
+        "mentions_verification": true,
+        "mentions_speed": true,
+        "mentions_increase": false,
+        "contains_literal_preserv_stem": false
+      },
+      "frozen_checker_failed_components": [
+        "mentions_increase",
+        "contains_literal_preserv_stem"
+      ]
+    },
+    {
+      "arm": "no-spec",
+      "fixture_id": "prose",
+      "repetition": 2,
+      "payload_sha256": "5717bd23884e888ea36cbb059da495ea9d36b50eaa74aa41b5304f4f84c5bc79",
+      "content_sha256": "e44e1aa71882b832648b848b583bb57ab223c3d0cf2a3d0e9d499f5a31a8f7ef",
+      "content": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own probability distribution. This process allows the system to generate multiple tokens per forward pass of the expensive target model, significantly increasing throughput without altering the final output distribution.",
+      "quality_pass": false,
+      "quality_detail": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own probability distribution. This process allows the system to generate multiple tokens per forward pass of the expensive target model, significantly increasing throughput without altering the final output distribution.",
+      "frozen_checker_components": {
+        "exactly_three_sentences": true,
+        "mentions_draft": true,
+        "mentions_target": true,
+        "mentions_verification": true,
+        "mentions_speed": true,
+        "mentions_increase": false,
+        "contains_literal_preserv_stem": false
+      },
+      "frozen_checker_failed_components": [
+        "mentions_increase",
+        "contains_literal_preserv_stem"
+      ]
+    },
+    {
+      "arm": "dflash2",
+      "fixture_id": "prose",
+      "repetition": 0,
+      "payload_sha256": "5717bd23884e888ea36cbb059da495ea9d36b50eaa74aa41b5304f4f84c5bc79",
+      "content_sha256": "46fb96d33e3a534fb198c6962c16ef81b6f27765d57a14d1aa70a4822a32c795",
+      "content": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own high-probability outputs. This process allows the system to generate multiple tokens per step without altering the final distribution of the target model, thereby significantly increasing inference throughput.",
+      "quality_pass": false,
+      "quality_detail": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own high-probability outputs. This process allows the system to generate multiple tokens per step without altering the final distribution of the target model, thereby significantly increasing inference throughput.",
+      "frozen_checker_components": {
+        "exactly_three_sentences": true,
+        "mentions_draft": true,
+        "mentions_target": true,
+        "mentions_verification": true,
+        "mentions_speed": true,
+        "mentions_increase": false,
+        "contains_literal_preserv_stem": false
+      },
+      "frozen_checker_failed_components": [
+        "mentions_increase",
+        "contains_literal_preserv_stem"
+      ]
+    },
+    {
+      "arm": "dflash2",
+      "fixture_id": "prose",
+      "repetition": 1,
+      "payload_sha256": "5717bd23884e888ea36cbb059da495ea9d36b50eaa74aa41b5304f4f84c5bc79",
+      "content_sha256": "46fb96d33e3a534fb198c6962c16ef81b6f27765d57a14d1aa70a4822a32c795",
+      "content": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own high-probability outputs. This process allows the system to generate multiple tokens per step without altering the final distribution of the target model, thereby significantly increasing inference throughput.",
+      "quality_pass": false,
+      "quality_detail": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own high-probability outputs. This process allows the system to generate multiple tokens per step without altering the final distribution of the target model, thereby significantly increasing inference throughput.",
+      "frozen_checker_components": {
+        "exactly_three_sentences": true,
+        "mentions_draft": true,
+        "mentions_target": true,
+        "mentions_verification": true,
+        "mentions_speed": true,
+        "mentions_increase": false,
+        "contains_literal_preserv_stem": false
+      },
+      "frozen_checker_failed_components": [
+        "mentions_increase",
+        "contains_literal_preserv_stem"
+      ]
+    },
+    {
+      "arm": "dflash2",
+      "fixture_id": "prose",
+      "repetition": 2,
+      "payload_sha256": "5717bd23884e888ea36cbb059da495ea9d36b50eaa74aa41b5304f4f84c5bc79",
+      "content_sha256": "46fb96d33e3a534fb198c6962c16ef81b6f27765d57a14d1aa70a4822a32c795",
+      "content": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own high-probability outputs. This process allows the system to generate multiple tokens per step without altering the final distribution of the target model, thereby significantly increasing inference throughput.",
+      "quality_pass": false,
+      "quality_detail": "A smaller draft model rapidly generates a sequence of candidate tokens to propose potential continuations. The larger target model then verifies these candidates in parallel, accepting the longest prefix that matches its own high-probability outputs. This process allows the system to generate multiple tokens per step without altering the final distribution of the target model, thereby significantly increasing inference throughput.",
+      "frozen_checker_components": {
+        "exactly_three_sentences": true,
+        "mentions_draft": true,
+        "mentions_target": true,
+        "mentions_verification": true,
+        "mentions_speed": true,
+        "mentions_increase": false,
+        "contains_literal_preserv_stem": false
+      },
+      "frozen_checker_failed_components": [
+        "mentions_increase",
+        "contains_literal_preserv_stem"
+      ]
+    }
+  ]
+}
