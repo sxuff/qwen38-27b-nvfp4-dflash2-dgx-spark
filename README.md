@@ -1,6 +1,6 @@
 # Qwen3.8-27B stock NVFP4 + DFlash2 on one DGX Spark
 
-A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with optional DFlash2 speculative decoding on one NVIDIA GB10 system.
+A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. DFlash2 is the default serving mode; no-spec is retained as the benchmark control and operational fallback.
 
 ![Qwen3.8-27B DFlash2 result on one DGX Spark](assets/qwen38-dflash2-result.png)
 
@@ -24,7 +24,7 @@ The tok/s metric is completion tokens divided by whole request wall time, includ
 
 The frozen quality gate did not pass because its lexical prose checker rejected all three prose rows in both arms. The checker accepted the requested three-sentence structure and the `draft`, `target`, verification, and throughput concepts, but its literal substring rules did not accept `increasing` for `increase` or `without altering` for `preserv`. The original six outputs, hashes, and term-by-term predicate decisions are published in [`evidence/prose-checker-results.json`](evidence/prose-checker-results.json) so readers can inspect them directly. The frozen result remains **24/27**, not 27/27. Code, JSON, math, reasoning, tools, and exact-copy checks passed in both arms.
 
-Only **15/27** paired outputs were byte-identical. DFlash2 is therefore an explicit opt-in, not the default, and this repository does not claim exact numerical equivalence or broad quality parity.
+Only **15/27** paired outputs were byte-identical. This limits the evidence claim: the repository does not claim exact numerical equivalence or broad quality parity. DFlash2 remains the default serving mode; no-spec is retained as the benchmark control and fallback.
 
 ## Exact stack
 
@@ -60,18 +60,19 @@ Set `HF_TOKEN` when required by your Hub rate limits.
 
 ## Serve
 
-No-spec is the safe default:
+Launch the default DFlash2 mode:
 
 ```bash
-MODEL_DIR=/path/to/target/snapshot ./scripts/serve.sh
-```
-
-DFlash2 is explicit:
-
-```bash
-MODE=dflash2 \
 MODEL_DIR=/path/to/target/snapshot \
 DRAFT_DIR=/path/to/draft/snapshot \
+./scripts/serve.sh
+```
+
+Use the no-spec control or fallback explicitly:
+
+```bash
+MODE=no-spec \
+MODEL_DIR=/path/to/target/snapshot \
 ./scripts/serve.sh
 ```
 

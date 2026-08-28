@@ -7,6 +7,10 @@ assert SPEC is not None and SPEC.loader is not None
 benchmark=importlib.util.module_from_spec(SPEC); SPEC.loader.exec_module(benchmark)
 
 class ContractTests(unittest.TestCase):
+    def test_dflash2_is_the_default_serving_mode(self):
+        serve=(ROOT/'scripts/serve.sh').read_text()
+        self.assertIn('MODE="${MODE:-dflash2}"',serve)
+
     def test_protocol_counts(self):
         protocol=json.loads((ROOT/'protocol.json').read_text()); fixtures=json.loads((ROOT/'fixtures.json').read_text())['fixtures']
         self.assertEqual(set(protocol['arms']),{'no-spec','dflash2'})

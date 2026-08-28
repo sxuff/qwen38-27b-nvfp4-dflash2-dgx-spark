@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-MODE="${MODE:-no-spec}"
+MODE="${MODE:-dflash2}"
 MODEL_DIR="${MODEL_DIR:?set MODEL_DIR to the pinned target snapshot}"
 DRAFT_DIR="${DRAFT_DIR:-}"
 IMAGE="${IMAGE:-sxuff/qwen38-27b-stock-dflash2:2026-08-28}"
