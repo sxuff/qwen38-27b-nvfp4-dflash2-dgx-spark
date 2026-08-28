@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "bytes": 1581,
+      "name": ".gitattributes",
+      "sha256": "8e63f02a5caa4dbc92838d44dddcfa2c1b76f355503fcbeaa3d6512f7fe132ef"
+    },
+    {
+      "bytes": 5397,
+      "name": "README.md",
+      "sha256": "0c06405ffff835f4da26115114a6dd7bb4a8b8a6881c17edd3a1086a99281269"
+    },
+    {
+      "bytes": 1239,
+      "name": "config.json",
+      "sha256": "873e3556509b0da06e29654ba00d4944888d4b5e8a33afde25f7eb27d321e980"
+    },
+    {
+      "bytes": 3848817896,
+      "name": "model.safetensors",
+      "sha256": "67fc76d68dc5a9415511a4f394ef744d67510cd20e93b37cc2cc7d28e4bab65c"
+    }
+  ],
+  "repository": "z-lab/Qwen3.8-27B-DFlash2",
+  "revision": "50307d4c4cde6860d4eee73e2547cd786fe8e8a4",
+  "role": "draft",
+  "schema_version": 1,
+  "total_bytes": 3848826113,
+  "total_files": 4
+}

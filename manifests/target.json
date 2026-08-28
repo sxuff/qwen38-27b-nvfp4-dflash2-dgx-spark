@@ -1,0 +1,120 @@
+{
+  "files": [
+    {
+      "bytes": 1570,
+      "name": ".gitattributes",
+      "sha256": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930"
+    },
+    {
+      "bytes": 314291,
+      "name": ".quant_summary.txt",
+      "sha256": "5920198f1770fc91c0f8032108e6d861ce7e0ef196eca140c9681231d8d99967"
+    },
+    {
+      "bytes": 11544,
+      "name": "LICENSE",
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a"
+    },
+    {
+      "bytes": 4382,
+      "name": "README.md",
+      "sha256": "6ac212699080d813d7f06e6f4fcc3b3a1a5de715509fdc36bf528a3c57328090"
+    },
+    {
+      "bytes": 8952,
+      "name": "chat_template.jinja",
+      "sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+    },
+    {
+      "bytes": 73003,
+      "name": "config.json",
+      "sha256": "7ff41ec6f96ad50efea3c92751cd261b63839d39936eb6e6ffc9066db8672740"
+    },
+    {
+      "bytes": 23587,
+      "name": "conversion-manifest.json",
+      "sha256": "c71e938cadabd25b2d6ec6b1bd15afecb618674cd8004cf1ecf04e28badbbf55"
+    },
+    {
+      "bytes": 214,
+      "name": "generation_config.json",
+      "sha256": "a4cef85934ea1fdcb207944dbc6eee70dbbf16806874428556ae33023336c0a4"
+    },
+    {
+      "bytes": 53749,
+      "name": "hf_quant_config.json",
+      "sha256": "0f39e8cd23abdfb79adc89ac1b19acad990aa6ac32973f9ab0a67d1e3449535c"
+    },
+    {
+      "bytes": 3353259,
+      "name": "merges.txt",
+      "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d"
+    },
+    {
+      "bytes": 9965652544,
+      "name": "model-00001-of-00003.safetensors",
+      "sha256": "fbcdb5ba1cdda462b5f38592d071e772c4d398afea61a0aa9188b32d1a239a79"
+    },
+    {
+      "bytes": 9985757064,
+      "name": "model-00002-of-00003.safetensors",
+      "sha256": "db6146a5464fb0a891181b93c81593f0ca65c602eb14120a1c2b1b09bca11f85"
+    },
+    {
+      "bytes": 1970287672,
+      "name": "model-00003-of-00003.safetensors",
+      "sha256": "d3cfb92742e30c8b46564665791dbe0a86ed64cfc02b1275081530793c0c9581"
+    },
+    {
+      "bytes": 214866,
+      "name": "model.safetensors.index.json",
+      "sha256": "7aa103a2582b7d26631988de33dea19e8a308ee9c239e8e14feb374af30905e2"
+    },
+    {
+      "bytes": 390,
+      "name": "preprocessor_config.json",
+      "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+    },
+    {
+      "bytes": 1145,
+      "name": "qualification-criteria.json",
+      "sha256": "8e3b57367245354acb040a133e63df8eb1f4aef787e036156b944dfda217352a"
+    },
+    {
+      "bytes": 2717,
+      "name": "qualification.json",
+      "sha256": "7be9d60606fc9590ca7b5717018e12050deaa6d7d93abb5e8cad0845240983a8"
+    },
+    {
+      "bytes": 539,
+      "name": "tensor-audit.json",
+      "sha256": "8a7801e2b46298432a129689879c9e4f8c69444e0b71b4c971470c2747794679"
+    },
+    {
+      "bytes": 12809320,
+      "name": "tokenizer.json",
+      "sha256": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3"
+    },
+    {
+      "bytes": 1121,
+      "name": "tokenizer_config.json",
+      "sha256": "e5d078b00e6c1223b32444db8c1001dc71d86ceef8ee706b5bf084c3a43a1f9c"
+    },
+    {
+      "bytes": 385,
+      "name": "video_preprocessor_config.json",
+      "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+    },
+    {
+      "bytes": 6722759,
+      "name": "vocab.json",
+      "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+    }
+  ],
+  "repository": "RadixArk/Qwen3.8-27B-NVFP4",
+  "revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854",
+  "role": "target",
+  "schema_version": 1,
+  "total_bytes": 21945295073,
+  "total_files": 22
+}

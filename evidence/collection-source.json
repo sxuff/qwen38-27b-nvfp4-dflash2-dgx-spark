@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "collection_source_commit": "40b0de267a29c323cbefe03f7341d4d20e624687",
+  "collection_seal_commit": "c8bee1e825554de99fdd909b0756e8119219f5ca",
+  "collection_source_tree_sha256": "1e3f68b49763c1ca42dcf8bebd36e49ea00822ae94c551c45c2982dd04728a4a",
+  "archive": "collection-source-c8bee1e.tar.gz",
+  "archive_bytes": 66461,
+  "archive_sha256": "9f4885f2c8b3661d2265ec6d1e072f34ca861c83ab4a4c6aeb230c7ad733a3db",
+  "note": "Exact clean source archive exercised by the completed primary collection. Public-recipe hardening and generated reports were added afterward without changing primary traces."
+}

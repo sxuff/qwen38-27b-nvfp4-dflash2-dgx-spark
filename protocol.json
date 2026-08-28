@@ -1,0 +1,66 @@
+{
+  "acceptance": {
+    "complete_rows_per_arm": 27,
+    "maximum_swap_growth_bytes": 536870912,
+    "minimum_mem_available_bytes": 16106127360,
+    "quality_pass_required": true,
+    "runtime_errors_allowed": 0,
+    "strict_output_hash_parity": "reported separately, not a semantic-quality gate"
+  },
+  "arms": {
+    "dflash2": {
+      "compatibility_overlay_commit": "c90d8c34cf795185ee8de736b7ded9bca3fe0de1",
+      "draft_model": "z-lab/Qwen3.8-27B-DFlash2",
+      "draft_revision": "50307d4c4cde6860d4eee73e2547cd786fe8e8a4",
+      "draft_tokens": 8,
+      "overlay_source_commit": "c14312a66420b75ca9a11bf1817c4db1fa26b097",
+      "runtime_base_commit": "c4271c3fe1262fc2adbd162c33b25de5255251c5"
+    },
+    "no-spec": {
+      "runtime_base_commit": "c4271c3fe1262fc2adbd162c33b25de5255251c5",
+      "speculation": "disabled"
+    }
+  },
+  "claim_boundary": "One paired operational sweep on one GB10. Throughput is workload-specific. Exact output parity and semantic quality are reported separately.",
+  "metric_definition": "end_to_end_completion_tokens_per_second is completion tokens divided by whole request wall time, including prefill and first-token latency; post-first-token decode rate is intentionally not inferred from SSE chunks",
+  "hardware": "single NVIDIA DGX Spark GB10",
+  "primary_performance_fixtures": [
+    "copy_python",
+    "copy_json",
+    "code",
+    "json",
+    "math",
+    "prose"
+  ],
+  "quality_fixtures": [
+    "literal",
+    "copy_python",
+    "copy_json",
+    "code",
+    "json",
+    "math",
+    "prose",
+    "reasoning",
+    "tool"
+  ],
+  "request_contract": {
+    "arm_order": [
+      "no-spec",
+      "dflash2"
+    ],
+    "include_usage": true,
+    "repetitions_per_fixture": 3,
+    "seed": 17,
+    "stream": true,
+    "temperature": 0,
+    "top_p": 1
+  },
+  "schema_version": 1,
+  "study_id": "qwen38-stock-nvfp4-dflash2-single-gb10-v1",
+  "target": {
+    "model": "RadixArk/Qwen3.8-27B-NVFP4",
+    "revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854",
+    "verified_bytes": 21945295073,
+    "verified_files": 22
+  }
+}

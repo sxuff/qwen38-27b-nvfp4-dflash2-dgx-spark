@@ -1,0 +1,43 @@
+{
+  "base_image_digest": "sha256:febfb971c7352570fc445c466ebd6ffc9d896024958e544a60f2137fd85856b1",
+  "compatibility_overlay_commit": "c90d8c34cf795185ee8de736b7ded9bca3fe0de1",
+  "dflash_donor_commit": "c14312a66420b75ca9a11bf1817c4db1fa26b097",
+  "draft_revision": "50307d4c4cde6860d4eee73e2547cd786fe8e8a4",
+  "image_id": "sha256:46d87859f1983604130eaf2d471a62cf4515e4de90aef0d24c9ffe74aa0911ff",
+  "image_tag": "sxuff/qwen38-27b-stock-dflash2:2026-08-28",
+  "overlay_files": [
+    {
+      "bytes": 10272,
+      "path": "overlay/sglang/kernels/ops/speculative/dflash.py",
+      "sha256": "21f11619531f493bbe9f71d465912ca707f2d722991832e446ff65aecb40528c"
+    },
+    {
+      "bytes": 8745,
+      "path": "overlay/sglang/srt/model_executor/model_runner_components/spec_aux_hidden_state.py",
+      "sha256": "f29b4fbaf9562d21d5aec6787b9c908e120c6f358b102f2ea7cec1d34ee13e04"
+    },
+    {
+      "bytes": 38873,
+      "path": "overlay/sglang/srt/models/dflash.py",
+      "sha256": "db87e68fd3999e8799264f5be6ce7c0243deeccec55e271f6094db39880e68d0"
+    },
+    {
+      "bytes": 17609,
+      "path": "overlay/sglang/srt/models/qwen3_5_mtp.py",
+      "sha256": "816be8b1d13557c14c9db59dc88d36704cc1118b8859740625ebbf9ec6e50ad0"
+    },
+    {
+      "bytes": 33975,
+      "path": "overlay/sglang/srt/speculative/dflash_utils.py",
+      "sha256": "47f6eee0e98912f8040ddb156be1442ebaefade4fb3f1f2b122ca00ffe592235"
+    },
+    {
+      "bytes": 92349,
+      "path": "overlay/sglang/srt/speculative/dflash_worker_v2.py",
+      "sha256": "80a4ebde5e8107231190be309466b54a2a9b3da756b2dcdb13bec31695c701e0"
+    }
+  ],
+  "schema_version": 1,
+  "sglang_base_commit": "c4271c3fe1262fc2adbd162c33b25de5255251c5",
+  "target_revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854"
+}

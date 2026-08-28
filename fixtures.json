@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "fixtures": [
+    {
+      "id": "literal",
+      "performance": false,
+      "max_tokens": 16,
+      "thinking": false,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Return exactly BENCH_READY and nothing else."
+        }
+      ]
+    },
+    {
+      "id": "copy_python",
+      "performance": true,
+      "max_tokens": 1800,
+      "thinking": false,
+      "expected_output": "from dataclasses import dataclass\n\n@dataclass(frozen=True)\nclass Event:\n    sequence: int\n    topic: str\n    payload: str\n\nEVENTS = [\n    Event(sequence=0, topic=\"build.step.0\", payload=\"artifact-000\"),\n    Event(sequence=1, topic=\"build.step.1\", payload=\"artifact-001\"),\n    Event(sequence=2, topic=\"build.step.2\", payload=\"artifact-002\"),\n    Event(sequence=3, topic=\"build.step.3\", payload=\"artifact-003\"),\n    Event(sequence=4, topic=\"build.step.4\", payload=\"artifact-004\"),\n    Event(sequence=5, topic=\"build.step.5\", payload=\"artifact-005\"),\n    Event(sequence=6, topic=\"build.step.0\", payload=\"artifact-006\"),\n    Event(sequence=7, topic=\"build.step.1\", payload=\"artifact-007\"),\n    Event(sequence=8, topic=\"build.step.2\", payload=\"artifact-008\"),\n    Event(sequence=9, topic=\"build.step.3\", payload=\"artifact-009\"),\n    Event(sequence=10, topic=\"build.step.4\", payload=\"artifact-010\"),\n    Event(sequence=11, topic=\"build.step.5\", payload=\"artifact-011\"),\n    Event(sequence=12, topic=\"build.step.0\", payload=\"artifact-012\"),\n    Event(sequence=13, topic=\"build.step.1\", payload=\"artifact-013\"),\n    Event(sequence=14, topic=\"build.step.2\", payload=\"artifact-014\"),\n    Event(sequence=15, topic=\"build.step.3\", payload=\"artifact-015\"),\n    Event(sequence=16, topic=\"build.step.4\", payload=\"artifact-016\"),\n    Event(sequence=17, topic=\"build.step.5\", payload=\"artifact-017\"),\n    Event(sequence=18, topic=\"build.step.0\", payload=\"artifact-018\"),\n    Event(sequence=19, topic=\"build.step.1\", payload=\"artifact-019\"),\n    Event(sequence=20, topic=\"build.step.2\", payload=\"artifact-020\"),\n    Event(sequence=21, topic=\"build.step.3\", payload=\"artifact-021\"),\n    Event(sequence=22, topic=\"build.step.4\", payload=\"artifact-022\"),\n    Event(sequence=23, topic=\"build.step.5\", payload=\"artifact-023\"),\n    Event(sequence=24, topic=\"build.step.0\", payload=\"artifact-024\"),\n    Event(sequence=25, topic=\"build.step.1\", payload=\"artifact-025\"),\n    Event(sequence=26, topic=\"build.step.2\", payload=\"artifact-026\"),\n    Event(sequence=27, topic=\"build.step.3\", payload=\"artifact-027\"),\n    Event(sequence=28, topic=\"build.step.4\", payload=\"artifact-028\"),\n    Event(sequence=29, topic=\"build.step.5\", payload=\"artifact-029\"),\n    Event(sequence=30, topic=\"build.step.0\", payload=\"artifact-030\"),\n    Event(sequence=31, topic=\"build.step.1\", payload=\"artifact-031\"),\n    Event(sequence=32, topic=\"build.step.2\", payload=\"artifact-032\"),\n    Event(sequence=33, topic=\"build.step.3\", payload=\"artifact-033\"),\n    Event(sequence=34, topic=\"build.step.4\", payload=\"artifact-034\"),\n    Event(sequence=35, topic=\"build.step.5\", payload=\"artifact-035\"),\n    Event(sequence=36, topic=\"build.step.0\", payload=\"artifact-036\"),\n    Event(sequence=37, topic=\"build.step.1\", payload=\"artifact-037\"),\n    Event(sequence=38, topic=\"build.step.2\", payload=\"artifact-038\"),\n    Event(sequence=39, topic=\"build.step.3\", payload=\"artifact-039\"),\n    Event(sequence=40, topic=\"build.step.4\", payload=\"artifact-040\"),\n    Event(sequence=41, topic=\"build.step.5\", payload=\"artifact-041\"),\n    Event(sequence=42, topic=\"build.step.0\", payload=\"artifact-042\"),\n    Event(sequence=43, topic=\"build.step.1\", payload=\"artifact-043\"),\n    Event(sequence=44, topic=\"build.step.2\", payload=\"artifact-044\"),\n    Event(sequence=45, topic=\"build.step.3\", payload=\"artifact-045\"),\n    Event(sequence=46, topic=\"build.step.4\", payload=\"artifact-046\"),\n    Event(sequence=47, topic=\"build.step.5\", payload=\"artifact-047\"),\n]\n\ndef by_topic(events: list[Event]) -> dict[str, list[Event]]:\n    result: dict[str, list[Event]] = {}\n    for event in events:\n        result.setdefault(event.topic, []).append(event)\n    return result",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Return exactly the text between BEGIN and END. Do not add fences, commentary, or the markers.\nBEGIN\nfrom dataclasses import dataclass\n\n@dataclass(frozen=True)\nclass Event:\n    sequence: int\n    topic: str\n    payload: str\n\nEVENTS = [\n    Event(sequence=0, topic=\"build.step.0\", payload=\"artifact-000\"),\n    Event(sequence=1, topic=\"build.step.1\", payload=\"artifact-001\"),\n    Event(sequence=2, topic=\"build.step.2\", payload=\"artifact-002\"),\n    Event(sequence=3, topic=\"build.step.3\", payload=\"artifact-003\"),\n    Event(sequence=4, topic=\"build.step.4\", payload=\"artifact-004\"),\n    Event(sequence=5, topic=\"build.step.5\", payload=\"artifact-005\"),\n    Event(sequence=6, topic=\"build.step.0\", payload=\"artifact-006\"),\n    Event(sequence=7, topic=\"build.step.1\", payload=\"artifact-007\"),\n    Event(sequence=8, topic=\"build.step.2\", payload=\"artifact-008\"),\n    Event(sequence=9, topic=\"build.step.3\", payload=\"artifact-009\"),\n    Event(sequence=10, topic=\"build.step.4\", payload=\"artifact-010\"),\n    Event(sequence=11, topic=\"build.step.5\", payload=\"artifact-011\"),\n    Event(sequence=12, topic=\"build.step.0\", payload=\"artifact-012\"),\n    Event(sequence=13, topic=\"build.step.1\", payload=\"artifact-013\"),\n    Event(sequence=14, topic=\"build.step.2\", payload=\"artifact-014\"),\n    Event(sequence=15, topic=\"build.step.3\", payload=\"artifact-015\"),\n    Event(sequence=16, topic=\"build.step.4\", payload=\"artifact-016\"),\n    Event(sequence=17, topic=\"build.step.5\", payload=\"artifact-017\"),\n    Event(sequence=18, topic=\"build.step.0\", payload=\"artifact-018\"),\n    Event(sequence=19, topic=\"build.step.1\", payload=\"artifact-019\"),\n    Event(sequence=20, topic=\"build.step.2\", payload=\"artifact-020\"),\n    Event(sequence=21, topic=\"build.step.3\", payload=\"artifact-021\"),\n    Event(sequence=22, topic=\"build.step.4\", payload=\"artifact-022\"),\n    Event(sequence=23, topic=\"build.step.5\", payload=\"artifact-023\"),\n    Event(sequence=24, topic=\"build.step.0\", payload=\"artifact-024\"),\n    Event(sequence=25, topic=\"build.step.1\", payload=\"artifact-025\"),\n    Event(sequence=26, topic=\"build.step.2\", payload=\"artifact-026\"),\n    Event(sequence=27, topic=\"build.step.3\", payload=\"artifact-027\"),\n    Event(sequence=28, topic=\"build.step.4\", payload=\"artifact-028\"),\n    Event(sequence=29, topic=\"build.step.5\", payload=\"artifact-029\"),\n    Event(sequence=30, topic=\"build.step.0\", payload=\"artifact-030\"),\n    Event(sequence=31, topic=\"build.step.1\", payload=\"artifact-031\"),\n    Event(sequence=32, topic=\"build.step.2\", payload=\"artifact-032\"),\n    Event(sequence=33, topic=\"build.step.3\", payload=\"artifact-033\"),\n    Event(sequence=34, topic=\"build.step.4\", payload=\"artifact-034\"),\n    Event(sequence=35, topic=\"build.step.5\", payload=\"artifact-035\"),\n    Event(sequence=36, topic=\"build.step.0\", payload=\"artifact-036\"),\n    Event(sequence=37, topic=\"build.step.1\", payload=\"artifact-037\"),\n    Event(sequence=38, topic=\"build.step.2\", payload=\"artifact-038\"),\n    Event(sequence=39, topic=\"build.step.3\", payload=\"artifact-039\"),\n    Event(sequence=40, topic=\"build.step.4\", payload=\"artifact-040\"),\n    Event(sequence=41, topic=\"build.step.5\", payload=\"artifact-041\"),\n    Event(sequence=42, topic=\"build.step.0\", payload=\"artifact-042\"),\n    Event(sequence=43, topic=\"build.step.1\", payload=\"artifact-043\"),\n    Event(sequence=44, topic=\"build.step.2\", payload=\"artifact-044\"),\n    Event(sequence=45, topic=\"build.step.3\", payload=\"artifact-045\"),\n    Event(sequence=46, topic=\"build.step.4\", payload=\"artifact-046\"),\n    Event(sequence=47, topic=\"build.step.5\", payload=\"artifact-047\"),\n]\n\ndef by_topic(events: list[Event]) -> dict[str, list[Event]]:\n    result: dict[str, list[Event]] = {}\n    for event in events:\n        result.setdefault(event.topic, []).append(event)\n    return result\nEND"
+        }
+      ]
+    },
+    {
+      "id": "copy_json",
+      "performance": true,
+      "max_tokens": 2200,
+      "thinking": false,
+      "expected_output": "[\n  {\n    \"id\": \"task-000\",\n    \"owner\": \"worker-0\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-001\",\n    \"owner\": \"worker-1\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-002\",\n    \"owner\": \"worker-2\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-003\",\n    \"owner\": \"worker-3\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-004\",\n    \"owner\": \"worker-0\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-005\",\n    \"owner\": \"worker-1\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-006\",\n    \"owner\": \"worker-2\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-007\",\n    \"owner\": \"worker-3\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-008\",\n    \"owner\": \"worker-0\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-009\",\n    \"owner\": \"worker-1\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-010\",\n    \"owner\": \"worker-2\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-011\",\n    \"owner\": \"worker-3\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-012\",\n    \"owner\": \"worker-0\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-013\",\n    \"owner\": \"worker-1\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-014\",\n    \"owner\": \"worker-2\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-015\",\n    \"owner\": \"worker-3\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-016\",\n    \"owner\": \"worker-0\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-017\",\n    \"owner\": \"worker-1\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-018\",\n    \"owner\": \"worker-2\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-019\",\n    \"owner\": \"worker-3\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-020\",\n    \"owner\": \"worker-0\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-021\",\n    \"owner\": \"worker-1\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-022\",\n    \"owner\": \"worker-2\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-023\",\n    \"owner\": \"worker-3\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-024\",\n    \"owner\": \"worker-0\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-025\",\n    \"owner\": \"worker-1\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-026\",\n    \"owner\": \"worker-2\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-027\",\n    \"owner\": \"worker-3\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-028\",\n    \"owner\": \"worker-0\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-029\",\n    \"owner\": \"worker-1\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-030\",\n    \"owner\": \"worker-2\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-031\",\n    \"owner\": \"worker-3\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-032\",\n    \"owner\": \"worker-0\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-033\",\n    \"owner\": \"worker-1\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-034\",\n    \"owner\": \"worker-2\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-035\",\n    \"owner\": \"worker-3\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  }\n]",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Return exactly the JSON between BEGIN and END. Do not add fences, commentary, or the markers.\nBEGIN\n[\n  {\n    \"id\": \"task-000\",\n    \"owner\": \"worker-0\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-001\",\n    \"owner\": \"worker-1\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-002\",\n    \"owner\": \"worker-2\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-003\",\n    \"owner\": \"worker-3\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-004\",\n    \"owner\": \"worker-0\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-005\",\n    \"owner\": \"worker-1\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-006\",\n    \"owner\": \"worker-2\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-007\",\n    \"owner\": \"worker-3\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-008\",\n    \"owner\": \"worker-0\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-009\",\n    \"owner\": \"worker-1\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-010\",\n    \"owner\": \"worker-2\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-011\",\n    \"owner\": \"worker-3\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-012\",\n    \"owner\": \"worker-0\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-013\",\n    \"owner\": \"worker-1\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-014\",\n    \"owner\": \"worker-2\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-015\",\n    \"owner\": \"worker-3\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-016\",\n    \"owner\": \"worker-0\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-017\",\n    \"owner\": \"worker-1\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-018\",\n    \"owner\": \"worker-2\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-019\",\n    \"owner\": \"worker-3\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-020\",\n    \"owner\": \"worker-0\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-021\",\n    \"owner\": \"worker-1\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-022\",\n    \"owner\": \"worker-2\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-023\",\n    \"owner\": \"worker-3\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-024\",\n    \"owner\": \"worker-0\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-025\",\n    \"owner\": \"worker-1\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-026\",\n    \"owner\": \"worker-2\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-027\",\n    \"owner\": \"worker-3\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-028\",\n    \"owner\": \"worker-0\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-029\",\n    \"owner\": \"worker-1\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-030\",\n    \"owner\": \"worker-2\",\n    \"state\": \"queued\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-031\",\n    \"owner\": \"worker-3\",\n    \"state\": \"running\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-032\",\n    \"owner\": \"worker-0\",\n    \"state\": \"passed\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-033\",\n    \"owner\": \"worker-1\",\n    \"state\": \"queued\",\n    \"attempt\": 2\n  },\n  {\n    \"id\": \"task-034\",\n    \"owner\": \"worker-2\",\n    \"state\": \"running\",\n    \"attempt\": 1\n  },\n  {\n    \"id\": \"task-035\",\n    \"owner\": \"worker-3\",\n    \"state\": \"passed\",\n    \"attempt\": 2\n  }\n]\nEND"
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "performance": true,
+      "max_tokens": 384,
+      "thinking": false,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Write a Python function named merge_intervals(intervals) that merges overlapping closed integer intervals. Return only one complete Python code block containing the function. Do not include tests or explanation."
+        }
+      ]
+    },
+    {
+      "id": "json",
+      "performance": true,
+      "max_tokens": 96,
+      "thinking": false,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Return one compact JSON object with exactly these string keys and values: runtime=SGLang, hardware=DGX Spark, speculative_mode=test. Return JSON only."
+        }
+      ]
+    },
+    {
+      "id": "math",
+      "performance": true,
+      "max_tokens": 192,
+      "thinking": false,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Compute 37 * 41. Give one short derivation and the final integer."
+        }
+      ]
+    },
+    {
+      "id": "prose",
+      "performance": true,
+      "max_tokens": 384,
+      "thinking": false,
+      "messages": [
+        {
+          "role": "user",
+          "content": "In exactly three concise sentences, explain how speculative decoding uses a draft model and target verification to increase throughput while preserving target-model behavior."
+        }
+      ]
+    },
+    {
+      "id": "reasoning",
+      "performance": false,
+      "max_tokens": 256,
+      "thinking": true,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Compute 19 * 23. Give the result in one sentence."
+        }
+      ]
+    },
+    {
+      "id": "tool",
+      "performance": false,
+      "max_tokens": 128,
+      "thinking": false,
+      "messages": [
+        {
+          "role": "user",
+          "content": "What is the weather in Paris? Use the available tool."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_weather",
+            "description": "Get weather for a city",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "city"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "tool_choice": "required"
+    }
+  ]
+}

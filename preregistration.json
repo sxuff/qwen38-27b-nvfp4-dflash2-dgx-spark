@@ -1,0 +1,155 @@
+{
+  "draft_manifest_sha256": "8ad270524306ee0a9399c3ae731f8bfa23783d9a4862fd456aea58ffe1564e66",
+  "fixtures_sha256": "786ea8c37b8f37cef3f306c9a73b0432efacefb7619167ccd62e5075eddb931c",
+  "primary_trace_count_at_freeze": 0,
+  "protocol_sha256": "a0c1838110c3cf829f04af523e1fff9745860813054386557de9e92a0702e37e",
+  "resolved_image_id": "sha256:46d87859f1983604130eaf2d471a62cf4515e4de90aef0d24c9ffe74aa0911ff",
+  "runtime_manifest_sha256": "0403fa5c106940e8c75219f28f30d7dff7597bd9a0d57e4e541010a366fbeddb",
+  "schema_version": 4,
+  "source_commit": "40b0de267a29c323cbefe03f7341d4d20e624687",
+  "source_tree_sha256": "1e3f68b49763c1ca42dcf8bebd36e49ea00822ae94c551c45c2982dd04728a4a",
+  "study_id": "qwen38-stock-nvfp4-dflash2-single-gb10-v4",
+  "target_manifest_sha256": "7589594712d6a6e7a3c2b1ce800e131ef022ef5563bb5c3348cc37e906ede78f",
+  "tracked_files": [
+    {
+      "bytes": 58,
+      "path": ".gitignore",
+      "sha256": "666ae829eb06501baece884c0cd0a9dab1f136fb2027fb8f93627a5b5921293f"
+    },
+    {
+      "bytes": 1061,
+      "path": "LICENSE",
+      "sha256": "f6eaa669b9310981c6f0add2372397f68daabb219e87e99d022d8e26b5ec1dec"
+    },
+    {
+      "bytes": 2917,
+      "path": "README.md",
+      "sha256": "f8b1919d22b31123663b490bfe3ddef556d7d151bca21b6b0f91441041f7aea7"
+    },
+    {
+      "bytes": 1823,
+      "path": "docker/Dockerfile",
+      "sha256": "09bbe9ac8f98c5302f242c0741e4fc8055c5880f0b342c0fece665b2a01e835c"
+    },
+    {
+      "bytes": 10272,
+      "path": "docker/overlay/sglang/kernels/ops/speculative/dflash.py",
+      "sha256": "21f11619531f493bbe9f71d465912ca707f2d722991832e446ff65aecb40528c"
+    },
+    {
+      "bytes": 8745,
+      "path": "docker/overlay/sglang/srt/model_executor/model_runner_components/spec_aux_hidden_state.py",
+      "sha256": "f29b4fbaf9562d21d5aec6787b9c908e120c6f358b102f2ea7cec1d34ee13e04"
+    },
+    {
+      "bytes": 38873,
+      "path": "docker/overlay/sglang/srt/models/dflash.py",
+      "sha256": "db87e68fd3999e8799264f5be6ce7c0243deeccec55e271f6094db39880e68d0"
+    },
+    {
+      "bytes": 17609,
+      "path": "docker/overlay/sglang/srt/models/qwen3_5_mtp.py",
+      "sha256": "816be8b1d13557c14c9db59dc88d36704cc1118b8859740625ebbf9ec6e50ad0"
+    },
+    {
+      "bytes": 33975,
+      "path": "docker/overlay/sglang/srt/speculative/dflash_utils.py",
+      "sha256": "47f6eee0e98912f8040ddb156be1442ebaefade4fb3f1f2b122ca00ffe592235"
+    },
+    {
+      "bytes": 92349,
+      "path": "docker/overlay/sglang/srt/speculative/dflash_worker_v2.py",
+      "sha256": "80a4ebde5e8107231190be309466b54a2a9b3da756b2dcdb13bec31695c701e0"
+    },
+    {
+      "bytes": 1107,
+      "path": "docs/PROTOCOL.md",
+      "sha256": "86c40fab9a88b0f507456482015751646afea82b0f405c58ccfebded3c5b2d0c"
+    },
+    {
+      "bytes": 19770,
+      "path": "fixtures.json",
+      "sha256": "786ea8c37b8f37cef3f306c9a73b0432efacefb7619167ccd62e5075eddb931c"
+    },
+    {
+      "bytes": 811,
+      "path": "manifests/draft.json",
+      "sha256": "8ad270524306ee0a9399c3ae731f8bfa23783d9a4862fd456aea58ffe1564e66"
+    },
+    {
+      "bytes": 3659,
+      "path": "manifests/target.json",
+      "sha256": "7589594712d6a6e7a3c2b1ce800e131ef022ef5563bb5c3348cc37e906ede78f"
+    },
+    {
+      "bytes": 2063,
+      "path": "protocol.json",
+      "sha256": "a0c1838110c3cf829f04af523e1fff9745860813054386557de9e92a0702e37e"
+    },
+    {
+      "bytes": 1758,
+      "path": "runtime-manifest.json",
+      "sha256": "0403fa5c106940e8c75219f28f30d7dff7597bd9a0d57e4e541010a366fbeddb"
+    },
+    {
+      "bytes": 7201,
+      "path": "scripts/analyze.py",
+      "sha256": "e06bf86640146cf12ad69c78da903797ba01fb4bbd79eeebd690b6409e941cc0"
+    },
+    {
+      "bytes": 12836,
+      "path": "scripts/benchmark.py",
+      "sha256": "3fa2eaf23df8faa23e0c56e2d6e4d7c961339305176d89562de6268434a4e52c"
+    },
+    {
+      "bytes": 315,
+      "path": "scripts/build_image.sh",
+      "sha256": "18ccac64067cd96dd25fff729fdc9a61529b9fab76147c8860f439acba891e30"
+    },
+    {
+      "bytes": 849,
+      "path": "scripts/ci.sh",
+      "sha256": "b6201af6141db66a7bb6761f31cd4d521a591010145d1afd75a1d6f46831fcd6"
+    },
+    {
+      "bytes": 2793,
+      "path": "scripts/download.py",
+      "sha256": "e843450d0e059ce33c38cbe544d0a49163c0cc35a5632d1a59f619e4abbb08ab"
+    },
+    {
+      "bytes": 3079,
+      "path": "scripts/run_study.sh",
+      "sha256": "ae4d031df293a29c743bf5d367e329514b69397af776727e633648f4802dfdb8"
+    },
+    {
+      "bytes": 3927,
+      "path": "scripts/serve.sh",
+      "sha256": "9d8ee95e9f8ab8582ed830bfa85b4584ab34ce5b84e4d06164ea07f3d8890e8f"
+    },
+    {
+      "bytes": 369,
+      "path": "scripts/stop.sh",
+      "sha256": "5090739c80c1c2fec0eaa408ec682ce0c01932c8bb42ccd7e40946bcf8167743"
+    },
+    {
+      "bytes": 1628,
+      "path": "scripts/verify_artifacts.py",
+      "sha256": "be196271c6f9a8027f159ba25d4b3a142e7526ca80ae37a7d65ed80c6c13ffb7"
+    },
+    {
+      "bytes": 1132,
+      "path": "scripts/verify_seal.py",
+      "sha256": "7958ce97822e7abf92bdf8fd4a967f0d87850d065c086bf6ff5f19e7d7cb19d0"
+    },
+    {
+      "bytes": 1999,
+      "path": "scripts/watchdog.py",
+      "sha256": "d8059f0d901fb2aafdc54b24d8686ecbae253f2134d41606a7f07a92e8f8ea5d"
+    },
+    {
+      "bytes": 3334,
+      "path": "tests/test_contracts.py",
+      "sha256": "5b1c0e5decfa11785596607fdb601b8792d84a5b19420ab44aaeb087fc3eea09"
+    }
+  ]
+}
