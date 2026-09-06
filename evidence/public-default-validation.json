@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "validation": "public default calibrated NVFP4 drafter",
+  "image_id": "sha256:cd2773022218b238c3d698b8e6f10d297b74527802a216c7c162373e49651f48",
+  "image_tag": "sxuff/qwen38-27b-stock-dflash2:2026-09-06-nvfp4-draft",
+  "target_revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854",
+  "draft_revision": "bd7a934213c47a9e7ef69eef36bb3325f47fd1f1",
+  "runtime": {
+    "draft_model_type": "DFlash2DraftModel",
+    "draft_quantization": "modelopt_fp4",
+    "draft_quantization_algorithm": "NVFP4",
+    "draft_weight_load_seconds": 9.55,
+    "dflash_ready": true,
+    "draft_tokens": 8,
+    "packed_target_lm_head_uses_eager_selector": true,
+    "quantized_draft_qkv_uses_sequential_materialization": true,
+    "silent_dequantization_observed": false
+  },
+  "behavior": {
+    "rows": 8,
+    "passes": 8,
+    "runtime_errors": 0,
+    "categories": [
+      "novel executable Python",
+      "code repair",
+      "arithmetic",
+      "multi-step reasoning",
+      "prose instruction following",
+      "structured JSON",
+      "required tool call",
+      "native vision"
+    ]
+  },
+  "safety": {
+    "minimum_mem_available_bytes": 29011386368,
+    "maximum_host_swap_growth_bytes": 0,
+    "maximum_container_swap_bytes": 0,
+    "watchdog_status": "stopped_without_breach"
+  },
+  "restoration": {
+    "model": "glm53-flash-iq2xxs-mtp",
+    "generation": "RESTORED_OK",
+    "finish_reason": "stop",
+    "model_service_active": true,
+    "watchdog_active": true,
+    "service_swap_bytes": 0
+  },
+  "complete": true
+}

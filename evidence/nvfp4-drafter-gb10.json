@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "study": "calibrated NVFP4 DFlash2 drafter on one NVIDIA GB10",
+  "evidence_label": "measured, operator-accepted rollout",
+  "hardware": "NVIDIA GB10, SM121, 128 GB unified memory",
+  "target": {
+    "repository": "RadixArk/Qwen3.8-27B-NVFP4",
+    "revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854"
+  },
+  "baseline_draft": {
+    "repository": "z-lab/Qwen3.8-27B-DFlash2",
+    "revision": "50307d4c4cde6860d4eee73e2547cd786fe8e8a4",
+    "quantization": "unquantized"
+  },
+  "candidate_draft": {
+    "repository": "maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal",
+    "revision": "bd7a934213c47a9e7ef69eef36bb3325f47fd1f1",
+    "quantization": "ModelOpt NVFP4 W4A4 with declared BF16 exclusions",
+    "weight_sha256": "2228b9b22e93a88d84556419c879448ab6c490ae65c4c0b166f4962190ddbf26"
+  },
+  "request_contract": {
+    "concurrency": 1,
+    "draft_tokens": 8,
+    "temperature": 0,
+    "top_p": 1,
+    "request_seed": 17,
+    "launch_order": ["baseline-1", "candidate-1", "candidate-2", "baseline-2", "baseline-3", "candidate-3"],
+    "measured_rows_per_arm": 24,
+    "performance_rows_per_arm": 21
+  },
+  "performance": {
+    "metric": "completion tokens divided by whole request wall time, including prefill and TTFT",
+    "baseline_pooled_tokens_per_second": 44.5759414582238,
+    "candidate_pooled_tokens_per_second": 47.99287359343403,
+    "speed_improvement_percent": 7.665417764451576,
+    "median_paired_speed_improvement_percent": 9.25169543555033,
+    "interleaved_period_speed_ratios": [1.0620479461561307, 1.0706139881563357, 1.09606772734979],
+    "baseline_median_ttft_seconds": 0.20160945993848145,
+    "candidate_median_ttft_seconds": 0.19224091200158,
+    "ttft_change_percent": -4.646879139381721
+  },
+  "runtime_evidence": {
+    "candidate_quantized_path_confirmed": true,
+    "dflash_active_both_arms": true,
+    "runtime_errors": 0,
+    "executable_code_passed_all_launches": true,
+    "structured_json_passed_all_launches": true,
+    "required_tool_call_passed_all_launches": true,
+    "native_vision_passed_all_launches": true
+  },
+  "safety": {
+    "baseline_minimum_mem_available_bytes": 29815910400,
+    "candidate_minimum_mem_available_bytes": 30693429248,
+    "maximum_host_swap_growth_bytes": 0,
+    "maximum_container_swap_bytes": 0
+  },
+  "decision": "Use the calibrated NVFP4 drafter by default; retain the original drafter as an explicit rollback.",
+  "claim_boundary": "One small matched single-GB10 suite. The result is workload-specific and does not establish universal quality preservation."
+}

@@ -1,10 +1,26 @@
 # Qwen3.8-27B stock NVFP4 + DFlash2 on one DGX Spark
 
-A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. DFlash2 is the default serving mode; no-spec is retained as the benchmark control and operational fallback.
+A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. The calibrated NVFP4 DFlash2 drafter is the default. The original BF16 drafter and no-spec mode remain explicit rollback options.
 
 ![Qwen3.8-27B DFlash2 result on one DGX Spark](assets/qwen38-dflash2-result-v2.png)
 
-## Measured comparison
+## Calibrated drafter result
+
+At concurrency one, replacing only the original BF16 DFlash2 drafter with `maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal` improved pooled whole-request completion throughput from **44.58 to 47.99 tok/s**, or **+7.67%**.
+
+- Median paired improvement: **+9.25%**
+- Interleaved period ratios: **1.062x, 1.071x, 1.096x**
+- Median TTFT: **0.202 s → 0.192 s**
+- Runtime errors: **0**
+- Host swap growth: **0 bytes**
+- Experiment-container swap: **0 bytes**
+- Executable Python, structured JSON, required tool calls, and native vision passed in all six launches
+
+The matched study used 24 requests per arm across six fresh launches in `B1 C1 C2 B2 B3 C3` order. Target, runtime image, context, KV precision, recurrent-state precision, draft length, scheduler, request payloads, and sampler were fixed. See [`evidence/nvfp4-drafter-gb10.json`](evidence/nvfp4-drafter-gb10.json) for the machine-readable comparison and [`evidence/public-default-validation.json`](evidence/public-default-validation.json) for the generation-tested default profile and rollback receipt.
+
+This is one small single-GB10 suite. The result is workload-specific and does not establish universal quality preservation.
+
+## Historical DFlash2 comparison
 
 One fixed-order paired sweep used 27 requests per arm: three repetitions across nine deterministic fixtures. Six fixture families, 18 rows per arm, formed the performance aggregate.
 
@@ -47,7 +63,7 @@ The downloader pins both Hub revisions, resumes partial files, preserves 20 GiB 
 
 ```bash
 python3 scripts/download.py target --destination "$HOME/models/Qwen3.8-27B-NVFP4-52d1adc5f38a"
-python3 scripts/download.py draft --destination "$HOME/models/Qwen3.8-27B-DFlash2-50307d4c4cde"
+python3 scripts/download.py draft-candidate --destination "$HOME/models/Qwen3.8-27B-DFlash2-NVFP4-RTNcal-bd7a934213c4"
 ```
 
 Set `HF_TOKEN` when required by your Hub rate limits.
@@ -64,7 +80,16 @@ Launch the default DFlash2 mode:
 
 ```bash
 MODEL_DIR=/path/to/target/snapshot \
-DRAFT_DIR=/path/to/draft/snapshot \
+DRAFT_DIR=/path/to/calibrated-nvfp4-draft/snapshot \
+./scripts/serve.sh
+```
+
+Use the original BF16 drafter explicitly:
+
+```bash
+DRAFT_VARIANT=baseline \
+MODEL_DIR=/path/to/target/snapshot \
+DRAFT_DIR=/path/to/original-bf16-draft/snapshot \
 ./scripts/serve.sh
 ```
 
@@ -108,6 +133,7 @@ This is one-host operational evidence. It does not establish universal DFlash2 s
 - MiaAI-Lab's current default target is `RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead`. This recipe and its measurements use the fully packed stock `RadixArk/Qwen3.8-27B-NVFP4`, so the reported rates are not directly interchangeable.
 - MiaAI-Lab's canonical DFlash table reports a two-call net-decode estimate. This repository reports whole-request completion tok/s from matched request payloads. Treat them as different clocks.
 - SGLang provides the serving runtime and DFlash2 integration. z-lab/Inco AI provides the DFlash2 draft. RadixArk provides the NVFP4 target.
+- `maurienne-ai` published and calibrated the ModelOpt NVFP4 drafter used by the default profile. The original DFlash2 architecture and source draft remain credited to Z Lab / Inco AI.
 
 ## Licenses
 

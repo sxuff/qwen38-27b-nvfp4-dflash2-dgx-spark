@@ -23,7 +23,7 @@ def download(url: str, dest: Path, expected: int) -> None:
  if part.stat().st_size!=expected: raise RuntimeError(f'{dest.name}: expected {expected} bytes, got {part.stat().st_size}')
  os.replace(part,dest)
 def main() -> int:
- p=argparse.ArgumentParser(); p.add_argument('role',choices=('target','draft')); p.add_argument('--destination',type=Path,required=True); p.add_argument('--report',type=Path); p.add_argument('--reserve-gib',type=int,default=20); a=p.parse_args()
+ p=argparse.ArgumentParser(); p.add_argument('role',choices=('target','draft','draft-candidate')); p.add_argument('--destination',type=Path,required=True); p.add_argument('--report',type=Path); p.add_argument('--reserve-gib',type=int,default=20); a=p.parse_args()
  root=Path(__file__).resolve().parents[1]; m=json.loads((root/'manifests'/f'{a.role}.json').read_text()); a.destination.mkdir(parents=True,exist_ok=True)
  needed=sum(r['bytes'] for r in m['files'] if not (a.destination/r['name']).exists()); free=shutil.disk_usage(a.destination).free
  if free-needed<a.reserve_gib*1024**3: raise SystemExit(f'insufficient disk: free={free}, needed={needed}, reserve={a.reserve_gib*1024**3}')

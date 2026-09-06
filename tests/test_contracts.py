@@ -10,6 +10,9 @@ class ContractTests(unittest.TestCase):
     def test_dflash2_is_the_default_serving_mode(self):
         serve=(ROOT/'scripts/serve.sh').read_text()
         self.assertIn('MODE="${MODE:-dflash2}"',serve)
+        self.assertIn('DRAFT_VARIANT="${DRAFT_VARIANT:-candidate}"',serve)
+        self.assertIn('DRAFT_QUANTIZATION=modelopt_fp4',serve)
+        self.assertIn('--speculative-draft-model-quantization "$DRAFT_QUANTIZATION"',serve)
 
     def test_protocol_counts(self):
         protocol=json.loads((ROOT/'protocol.json').read_text()); fixtures=json.loads((ROOT/'fixtures.json').read_text())['fixtures']
@@ -45,6 +48,15 @@ class ContractTests(unittest.TestCase):
         self.assertRegex(manifest['image_id'],r'^sha256:[0-9a-f]{64}$')
         self.assertEqual(manifest['target_revision'],json.loads((ROOT/'manifests/target.json').read_text())['revision'])
         self.assertEqual(manifest['draft_revision'],json.loads((ROOT/'manifests/draft.json').read_text())['revision'])
+
+    def test_candidate_manifest_is_pinned(self):
+        candidate=json.loads((ROOT/'manifests/draft-candidate.json').read_text())
+        deployment=json.loads((ROOT/'deployment-manifest.json').read_text())
+        self.assertEqual(candidate['revision'],'bd7a934213c47a9e7ef69eef36bb3325f47fd1f1')
+        weight=next(x for x in candidate['files'] if x['name']=='model.safetensors')
+        self.assertEqual(weight['sha256'],'2228b9b22e93a88d84556419c879448ab6c490ae65c4c0b166f4962190ddbf26')
+        self.assertEqual(deployment['default_draft']['revision'],candidate['revision'])
+        self.assertEqual(deployment['default_draft']['manifest_sha256'],hashlib.sha256((ROOT/'manifests/draft-candidate.json').read_bytes()).hexdigest())
 
     def test_mamba_pool_matches_scheduler_ceiling(self):
         serve=(ROOT/'scripts/serve.sh').read_text()

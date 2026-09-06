@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "role": "draft-candidate",
+  "repository": "maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal",
+  "revision": "bd7a934213c47a9e7ef69eef36bb3325f47fd1f1",
+  "license": "apache-2.0",
+  "files": [
+    {"name": ".gitattributes", "bytes": 1581, "sha256": "8e63f02a5caa4dbc92838d44dddcfa2c1b76f355503fcbeaa3d6512f7fe132ef"},
+    {"name": "README.incoai-original.md", "bytes": 5399, "sha256": "be141ff737af8779959cb5ecaefb458ac3c214a5020aa40f69d4d1dc6f42494a"},
+    {"name": "README.md", "bytes": 7576, "sha256": "9941d6c50011e3e8d0e0a1319a625a5fab05d3814a19c74be05996ccee8457cb"},
+    {"name": "config.json", "bytes": 2617, "sha256": "6bf5936c68d432db3c8408d5836dc32e05dc3c4be538eb3e576439186262b186"},
+    {"name": "hf_quant_config.json", "bytes": 773, "sha256": "7aa6b31ef6cde1cf7c5489f3a4920be2f5ff1cd2a56e9c5ae1096ae7c94a58bb"},
+    {"name": "model.safetensors", "bytes": 1550153248, "sha256": "2228b9b22e93a88d84556419c879448ab6c490ae65c4c0b166f4962190ddbf26"}
+  ],
+  "total_files": 6,
+  "total_bytes": 1550171194,
+  "quantization": {
+    "method": "modelopt_fp4",
+    "algorithm": "NVFP4",
+    "weight_activation": "W4A4",
+    "group_size": 16,
+    "packed_weight_tensors": 35,
+    "fp8_scale_tensors": 35,
+    "fp32_scale_tensors": 70,
+    "bf16_tensors": 46,
+    "bf16_boundaries": ["fc", "candidate_selector.*", "attention_conv.*", "mlp_conv.*", "RMSNorm weights"]
+  }
+}

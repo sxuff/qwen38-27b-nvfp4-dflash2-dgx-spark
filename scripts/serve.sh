@@ -4,7 +4,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MODE="${MODE:-dflash2}"
 MODEL_DIR="${MODEL_DIR:?set MODEL_DIR to the pinned target snapshot}"
 DRAFT_DIR="${DRAFT_DIR:-}"
-IMAGE="${IMAGE:-sxuff/qwen38-27b-stock-dflash2:2026-08-28}"
+DRAFT_VARIANT="${DRAFT_VARIANT:-candidate}"
+IMAGE="${IMAGE:-sxuff/qwen38-27b-stock-dflash2:2026-09-06-nvfp4-draft}"
 NAME="${NAME:-qwen38-27b-stock-nvfp4}"
 HOST="${HOST:-127.0.0.1}"
 PORT="${PORT:-8001}"
@@ -12,14 +13,19 @@ MEM_FRACTION_STATIC="${MEM_FRACTION_STATIC:-0.70}"
 CPUSET="${CPUSET:-5-9,15-19}"
 STATE_DIR="${STATE_DIR:-$ROOT/.state}"
 case "$MODE" in no-spec|dflash2) ;; *) echo 'MODE must be no-spec or dflash2' >&2; exit 2;; esac
+case "$DRAFT_VARIANT" in
+  candidate) DRAFT_MANIFEST="$ROOT/manifests/draft-candidate.json"; DRAFT_QUANTIZATION=modelopt_fp4 ;;
+  baseline) DRAFT_MANIFEST="$ROOT/manifests/draft.json"; DRAFT_QUANTIZATION=unquant ;;
+  *) echo 'DRAFT_VARIANT must be candidate or baseline' >&2; exit 2 ;;
+esac
 mkdir -p "$STATE_DIR"
 python3 "$ROOT/scripts/verify_contract.py" >/dev/null
 python3 "$ROOT/scripts/verify_artifacts.py" --manifest "$ROOT/manifests/target.json" --root "$MODEL_DIR" --report "$STATE_DIR/target-verification.json" >/dev/null
 if [[ "$MODE" == dflash2 ]]; then
   [[ -n "$DRAFT_DIR" ]] || { echo 'DRAFT_DIR is required for dflash2' >&2; exit 2; }
-  python3 "$ROOT/scripts/verify_artifacts.py" --manifest "$ROOT/manifests/draft.json" --root "$DRAFT_DIR" --report "$STATE_DIR/draft-verification.json" >/dev/null
+  python3 "$ROOT/scripts/verify_artifacts.py" --manifest "$DRAFT_MANIFEST" --root "$DRAFT_DIR" --report "$STATE_DIR/draft-verification.json" >/dev/null
 fi
-EXPECTED_IMAGE_ID="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["image_id"])' "$ROOT/runtime-manifest.json")"
+EXPECTED_IMAGE_ID="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["image_id"])' "$ROOT/deployment-manifest.json")"
 ACTUAL_IMAGE_ID="$(docker image inspect "$IMAGE" --format '{{.Id}}')"
 [[ "$ACTUAL_IMAGE_ID" == "$EXPECTED_IMAGE_ID" ]] || { echo "image identity mismatch: expected=$EXPECTED_IMAGE_ID actual=$ACTUAL_IMAGE_ID" >&2; exit 2; }
 docker image inspect "$IMAGE" --format '{{json .Config.Labels}}' > "$STATE_DIR/image-labels.json"
@@ -41,9 +47,9 @@ if [[ "$MODE" == dflash2 ]]; then
     volumes+=(-v "$DRAFT_DIR:/draft:ro")
     draft_container_path=/draft
   fi
-  args+=(--speculative-algorithm DFLASH --speculative-draft-model-path "$draft_container_path" --speculative-num-draft-tokens 8)
+  args+=(--speculative-algorithm DFLASH --speculative-draft-model-path "$draft_container_path" --speculative-draft-model-quantization "$DRAFT_QUANTIZATION" --speculative-num-draft-tokens 8)
 fi
-id=$(docker create --name "$NAME" --gpus all --ipc host --network host --cpuset-cpus "$CPUSET" --memory 110g --memory-swap 110g --label io.sxuff.qwen38.recipe=true --label "io.sxuff.qwen38.mode=$MODE" "${volumes[@]}" "$IMAGE" "${args[@]}")
+id=$(docker create --name "$NAME" --gpus all --ipc host --network host --cpuset-cpus "$CPUSET" --memory 110g --memory-swap 110g --label io.sxuff.qwen38.recipe=true --label "io.sxuff.qwen38.mode=$MODE" --label "io.sxuff.qwen38.draft_variant=$DRAFT_VARIANT" "${volumes[@]}" "$IMAGE" "${args[@]}")
 python3 - "$STATE_DIR/launch.json" "$id" "$MODE" "$IMAGE" "$MODEL_DIR" "$DRAFT_DIR" "${args[@]}" <<'PY'
 import json,sys,datetime
 out,cid,mode,image,model,draft,*args=sys.argv[1:]

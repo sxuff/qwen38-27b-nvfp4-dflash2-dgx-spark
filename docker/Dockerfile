@@ -5,7 +5,8 @@ LABEL io.sxuff.sglang.base_commit="c4271c3fe1262fc2adbd162c33b25de5255251c5"
 LABEL io.sxuff.dflash.donor_commit="c14312a66420b75ca9a11bf1817c4db1fa26b097"
 LABEL io.sxuff.dflash.compat_overlay_commit="c90d8c34cf795185ee8de736b7ded9bca3fe0de1"
 LABEL io.sxuff.target_revision="52d1adc5f38aa5ebf099c29ed7025ba34cfbb854"
-LABEL io.sxuff.draft_revision="50307d4c4cde6860d4eee73e2547cd786fe8e8a4"
+LABEL io.sxuff.draft_baseline_revision="50307d4c4cde6860d4eee73e2547cd786fe8e8a4"
+LABEL io.sxuff.draft_candidate_revision="bd7a934213c47a9e7ef69eef36bb3325f47fd1f1"
 
 COPY overlay/sglang/srt/models/qwen3_5_mtp.py /sgl-workspace/sglang/python/sglang/srt/models/qwen3_5_mtp.py
 COPY overlay/sglang/kernels/ops/speculative/dflash.py /sgl-workspace/sglang/python/sglang/kernels/ops/speculative/dflash.py

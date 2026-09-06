@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "image_tag": "sxuff/qwen38-27b-stock-dflash2:2026-09-06-nvfp4-draft",
+  "image_id": "sha256:cd2773022218b238c3d698b8e6f10d297b74527802a216c7c162373e49651f48",
+  "platform": "linux/arm64",
+  "sglang_base_image_digest": "sha256:febfb971c7352570fc445c466ebd6ffc9d896024958e544a60f2137fd85856b1",
+  "sglang_base_commit": "c4271c3fe1262fc2adbd162c33b25de5255251c5",
+  "dflash_donor_commit": "c14312a66420b75ca9a11bf1817c4db1fa26b097",
+  "compatibility_overlay_commit": "c90d8c34cf795185ee8de736b7ded9bca3fe0de1",
+  "target_revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854",
+  "default_draft": {
+    "repository": "maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal",
+    "revision": "bd7a934213c47a9e7ef69eef36bb3325f47fd1f1",
+    "manifest_sha256": "91d36ff2cce970040ec8bc4b380dc96cbe11a30d399df130565c9e5a370b5d68",
+    "quantization": "modelopt_fp4"
+  },
+  "rollback_draft": {
+    "repository": "z-lab/Qwen3.8-27B-DFlash2",
+    "revision": "50307d4c4cde6860d4eee73e2547cd786fe8e8a4",
+    "quantization": "unquant"
+  },
+  "dockerfile_sha256": "714180769e83f5ab5116bf0e4f0d493bc1f58db24c1c237364a9239f4fe385bd"
+}
