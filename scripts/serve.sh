@@ -5,6 +5,8 @@ MODE="${MODE:-dflash2}"
 MODEL_DIR="${MODEL_DIR:?set MODEL_DIR to the pinned target snapshot}"
 DRAFT_DIR="${DRAFT_DIR:-}"
 DRAFT_VARIANT="${DRAFT_VARIANT:-candidate}"
+DRAFT_TOKENS="${DRAFT_TOKENS:-}"
+SERVER_RANDOM_SEED="${SERVER_RANDOM_SEED:-17}"
 IMAGE="${IMAGE:-sxuff/qwen38-27b-stock-dflash2:2026-09-06-nvfp4-draft}"
 NAME="${NAME:-qwen38-27b-stock-nvfp4}"
 HOST="${HOST:-127.0.0.1}"
@@ -14,10 +16,13 @@ CPUSET="${CPUSET:-5-9,15-19}"
 STATE_DIR="${STATE_DIR:-$ROOT/.state}"
 case "$MODE" in no-spec|dflash2) ;; *) echo 'MODE must be no-spec or dflash2' >&2; exit 2;; esac
 case "$DRAFT_VARIANT" in
-  candidate) DRAFT_MANIFEST="$ROOT/manifests/draft-candidate.json"; DRAFT_QUANTIZATION=modelopt_fp4 ;;
-  baseline) DRAFT_MANIFEST="$ROOT/manifests/draft.json"; DRAFT_QUANTIZATION=unquant ;;
+  candidate) DRAFT_MANIFEST="$ROOT/manifests/draft-candidate.json"; DRAFT_QUANTIZATION=modelopt_fp4; DEFAULT_DRAFT_TOKENS=16 ;;
+  baseline) DRAFT_MANIFEST="$ROOT/manifests/draft.json"; DRAFT_QUANTIZATION=unquant; DEFAULT_DRAFT_TOKENS=8 ;;
   *) echo 'DRAFT_VARIANT must be candidate or baseline' >&2; exit 2 ;;
 esac
+DRAFT_TOKENS="${DRAFT_TOKENS:-$DEFAULT_DRAFT_TOKENS}"
+[[ "$DRAFT_TOKENS" =~ ^[1-9][0-9]*$ ]] || { echo 'DRAFT_TOKENS must be a positive integer' >&2; exit 2; }
+[[ "$SERVER_RANDOM_SEED" =~ ^[0-9]+$ ]] || { echo 'SERVER_RANDOM_SEED must be a non-negative integer' >&2; exit 2; }
 mkdir -p "$STATE_DIR"
 python3 "$ROOT/scripts/verify_contract.py" >/dev/null
 python3 "$ROOT/scripts/verify_artifacts.py" --manifest "$ROOT/manifests/target.json" --root "$MODEL_DIR" --report "$STATE_DIR/target-verification.json" >/dev/null
@@ -34,7 +39,7 @@ if docker inspect "$NAME" >/dev/null 2>&1; then
   [[ "$owned" == true ]] || { echo "refusing to touch unowned container $NAME" >&2; exit 2; }
   docker rm -f "$NAME" >/dev/null
 fi
-args=(python3 -m sglang.launch_server --trust-remote-code --model-path /model --served-model-name qwen38-27b-stock-nvfp4 --mem-fraction-static "$MEM_FRACTION_STATIC" --attention-backend flashinfer --chunked-prefill-size 8192 --disable-prefill-cuda-graph --kv-cache-dtype fp8_e4m3 --mamba-ssm-dtype bfloat16 --mamba-full-memory-ratio 4.21 --mamba-radix-cache-strategy extra_buffer --max-mamba-cache-size 50 --max-running-requests 10 --context-length 262144 --reasoning-parser qwen3 --tool-call-parser qwen3_coder --sampling-defaults model --enable-metrics --enable-cache-report --host "$HOST" --port "$PORT")
+args=(python3 -m sglang.launch_server --trust-remote-code --model-path /model --served-model-name qwen38-27b-stock-nvfp4 --mem-fraction-static "$MEM_FRACTION_STATIC" --attention-backend flashinfer --chunked-prefill-size 8192 --disable-prefill-cuda-graph --kv-cache-dtype fp8_e4m3 --mamba-ssm-dtype bfloat16 --mamba-full-memory-ratio 4.21 --mamba-radix-cache-strategy extra_buffer --max-mamba-cache-size 50 --max-running-requests 10 --context-length 262144 --random-seed "$SERVER_RANDOM_SEED" --reasoning-parser qwen3 --tool-call-parser qwen3_coder --sampling-defaults model --enable-metrics --enable-cache-report --host "$HOST" --port "$PORT")
 volumes=(-v "$MODEL_DIR:/model:ro")
 if [[ "$MODE" == dflash2 ]]; then
   draft_parent="$(dirname "$DRAFT_DIR")"
@@ -47,7 +52,7 @@ if [[ "$MODE" == dflash2 ]]; then
     volumes+=(-v "$DRAFT_DIR:/draft:ro")
     draft_container_path=/draft
   fi
-  args+=(--speculative-algorithm DFLASH --speculative-draft-model-path "$draft_container_path" --speculative-draft-model-quantization "$DRAFT_QUANTIZATION" --speculative-num-draft-tokens 8)
+  args+=(--speculative-algorithm DFLASH --speculative-draft-model-path "$draft_container_path" --speculative-draft-model-quantization "$DRAFT_QUANTIZATION" --speculative-num-draft-tokens "$DRAFT_TOKENS")
 fi
 id=$(docker create --name "$NAME" --gpus all --ipc host --network host --cpuset-cpus "$CPUSET" --memory 110g --memory-swap 110g --label io.sxuff.qwen38.recipe=true --label "io.sxuff.qwen38.mode=$MODE" --label "io.sxuff.qwen38.draft_variant=$DRAFT_VARIANT" "${volumes[@]}" "$IMAGE" "${args[@]}")
 python3 - "$STATE_DIR/launch.json" "$id" "$MODE" "$IMAGE" "$MODEL_DIR" "$DRAFT_DIR" "${args[@]}" <<'PY'

@@ -12,7 +12,9 @@
     "repository": "maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal",
     "revision": "bd7a934213c47a9e7ef69eef36bb3325f47fd1f1",
     "manifest_sha256": "91d36ff2cce970040ec8bc4b380dc96cbe11a30d399df130565c9e5a370b5d68",
-    "quantization": "modelopt_fp4"
+    "quantization": "modelopt_fp4",
+    "draft_tokens": 16,
+    "server_random_seed": 17
   },
   "rollback_draft": {
     "repository": "z-lab/Qwen3.8-27B-DFlash2",

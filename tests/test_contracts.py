@@ -11,8 +11,14 @@ class ContractTests(unittest.TestCase):
         serve=(ROOT/'scripts/serve.sh').read_text()
         self.assertIn('MODE="${MODE:-dflash2}"',serve)
         self.assertIn('DRAFT_VARIANT="${DRAFT_VARIANT:-candidate}"',serve)
+        self.assertIn('DEFAULT_DRAFT_TOKENS=16',serve)
+        self.assertIn('DEFAULT_DRAFT_TOKENS=8',serve)
+        self.assertIn('DRAFT_TOKENS="${DRAFT_TOKENS:-$DEFAULT_DRAFT_TOKENS}"',serve)
+        self.assertIn('SERVER_RANDOM_SEED="${SERVER_RANDOM_SEED:-17}"',serve)
+        self.assertIn('--random-seed "$SERVER_RANDOM_SEED"',serve)
         self.assertIn('DRAFT_QUANTIZATION=modelopt_fp4',serve)
         self.assertIn('--speculative-draft-model-quantization "$DRAFT_QUANTIZATION"',serve)
+        self.assertIn('--speculative-num-draft-tokens "$DRAFT_TOKENS"',serve)
 
     def test_protocol_counts(self):
         protocol=json.loads((ROOT/'protocol.json').read_text()); fixtures=json.loads((ROOT/'fixtures.json').read_text())['fixtures']
@@ -56,6 +62,8 @@ class ContractTests(unittest.TestCase):
         weight=next(x for x in candidate['files'] if x['name']=='model.safetensors')
         self.assertEqual(weight['sha256'],'2228b9b22e93a88d84556419c879448ab6c490ae65c4c0b166f4962190ddbf26')
         self.assertEqual(deployment['default_draft']['revision'],candidate['revision'])
+        self.assertEqual(deployment['default_draft']['draft_tokens'],16)
+        self.assertEqual(deployment['default_draft']['server_random_seed'],17)
         self.assertEqual(deployment['default_draft']['manifest_sha256'],hashlib.sha256((ROOT/'manifests/draft-candidate.json').read_bytes()).hexdigest())
 
     def test_mamba_pool_matches_scheduler_ceiling(self):

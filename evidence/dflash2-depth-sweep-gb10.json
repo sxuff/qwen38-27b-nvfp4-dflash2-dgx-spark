@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "study": "calibrated NVFP4 DFlash2 draft-length sweep on one NVIDIA GB10",
+  "evidence_label": "measured operating sweep",
+  "hardware": "NVIDIA GB10, SM121, 128 GB unified memory",
+  "target_revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854",
+  "draft_revision": "bd7a934213c47a9e7ef69eef36bb3325f47fd1f1",
+  "runtime_image_id": "sha256:cd2773022218b238c3d698b8e6f10d297b74527802a216c7c162373e49651f48",
+  "fixed_configuration": {
+    "concurrency": 1,
+    "kv_cache_dtype": "fp8_e4m3",
+    "mamba_ssm_dtype": "bfloat16",
+    "draft_quantization": "modelopt_fp4",
+    "temperature": 0,
+    "top_p": 1,
+    "request_seed": 17,
+    "server_random_seed": 17,
+    "context_length": 262144
+  },
+  "metric": "completion tokens divided by whole request wall time, including prefill and TTFT",
+  "depths": {
+    "4": {
+      "pooled_tokens_per_second": 33.75872886730466,
+      "median_row_tokens_per_second": 35.05313408002487,
+      "median_ttft_seconds": 0.1912307608872652,
+      "median_accept_length_log_sample": 3.475,
+      "quality_passes": "8/8"
+    },
+    "6": {
+      "pooled_tokens_per_second": 44.06206577423451,
+      "median_row_tokens_per_second": 48.433785956870835,
+      "median_ttft_seconds": 0.19867310393601656,
+      "median_accept_length_log_sample": 4.58,
+      "quality_passes": "8/8"
+    },
+    "8": {
+      "pooled_tokens_per_second": 47.55161218773588,
+      "median_row_tokens_per_second": 51.25890041395212,
+      "median_ttft_seconds": 0.19391361298039556,
+      "median_accept_length_log_sample": 5.225,
+      "quality_passes": "8/8"
+    },
+    "12": {
+      "pooled_tokens_per_second": 54.98574787117743,
+      "median_row_tokens_per_second": 60.695484686039144,
+      "median_ttft_seconds": 0.21155788702890277,
+      "median_accept_length_log_sample": 6.28,
+      "quality_passes": "8/8"
+    },
+    "16": {
+      "pooled_tokens_per_second": 56.60383007859565,
+      "median_row_tokens_per_second": 63.004150039321736,
+      "median_ttft_seconds": 0.2076760670170188,
+      "median_accept_length_log_sample": 6.45,
+      "quality_passes": "8/8"
+    }
+  },
+  "selected_depth": 16,
+  "selected_vs_depth_8": {
+    "pooled_throughput_improvement_percent": 19.03661616165866,
+    "median_row_throughput_improvement_percent": 22.913580920617417,
+    "median_ttft_change_percent": 7.097208816389089
+  },
+  "activation": {
+    "requested_depth_reported_by_runtime": true,
+    "dflash_verification_active_all_depths": true,
+    "modelopt_nvfp4_path_active_all_depths": true,
+    "runtime_errors": 0
+  },
+  "safety": {
+    "minimum_mem_available_bytes_across_depths": 29792624640,
+    "maximum_host_swap_growth_bytes": 0,
+    "maximum_container_swap_bytes": 0
+  },
+  "decision": "Use D=16 by default. DRAFT_TOKENS remains configurable, with D=8 as the explicit rollback value.",
+  "claim_boundary": "One GB10 and one fixed task suite. Throughput and the selected depth remain workload-specific. Acceptance length is the median of periodic runtime log samples, not a token-weighted statistic."
+}

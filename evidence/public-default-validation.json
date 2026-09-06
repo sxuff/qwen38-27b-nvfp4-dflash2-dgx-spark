@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "validation": "public default calibrated NVFP4 drafter",
+  "schema_version": 2,
+  "validation": "public default calibrated NVFP4 drafter at D=16",
   "image_id": "sha256:cd2773022218b238c3d698b8e6f10d297b74527802a216c7c162373e49651f48",
   "image_tag": "sxuff/qwen38-27b-stock-dflash2:2026-09-06-nvfp4-draft",
   "target_revision": "52d1adc5f38aa5ebf099c29ed7025ba34cfbb854",
@@ -9,9 +9,15 @@
     "draft_model_type": "DFlash2DraftModel",
     "draft_quantization": "modelopt_fp4",
     "draft_quantization_algorithm": "NVFP4",
-    "draft_weight_load_seconds": 9.55,
+    "server_random_seed": 17,
+    "requested_draft_tokens": 16,
+    "runtime_reported_draft_tokens": 16,
+    "runtime_reported_block_size": 16,
+    "artifact_declared_block_size": 8,
+    "explicit_block_size_override": true,
     "dflash_ready": true,
-    "draft_tokens": 8,
+    "max_running_requests": 10,
+    "kv_cache_dtype": "fp8_e4m3",
     "packed_target_lm_head_uses_eager_selector": true,
     "quantized_draft_qkv_uses_sequential_materialization": true,
     "silent_dequantization_observed": false
@@ -20,6 +26,7 @@
     "rows": 8,
     "passes": 8,
     "runtime_errors": 0,
+    "finish_reasons": ["stop", "stop", "stop", "stop", "stop", "stop", "tool_calls", "stop"],
     "categories": [
       "novel executable Python",
       "code repair",
@@ -32,7 +39,7 @@
     ]
   },
   "safety": {
-    "minimum_mem_available_bytes": 29011386368,
+    "minimum_mem_available_bytes": 30253543424,
     "maximum_host_swap_growth_bytes": 0,
     "maximum_container_swap_bytes": 0,
     "watchdog_status": "stopped_without_breach"
@@ -43,7 +50,7 @@
     "finish_reason": "stop",
     "model_service_active": true,
     "watchdog_active": true,
-    "service_swap_bytes": 0
+    "model_service_swap_bytes": 0
   },
   "complete": true
 }

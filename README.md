@@ -1,10 +1,31 @@
 # Qwen3.8-27B stock NVFP4 + DFlash2 on one DGX Spark
 
-A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. The calibrated NVFP4 DFlash2 drafter is the default. The original BF16 drafter and no-spec mode remain explicit rollback options.
+A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. The calibrated NVFP4 DFlash2 drafter with `D=16` is the default. `D=8`, the original BF16 drafter, and no-spec mode remain explicit rollback options.
 
 ![Calibrated NVFP4 DFlash2 drafter result on one GB10](assets/qwen38-nvfp4-drafter-result.png)
 
-## Calibrated drafter result
+## Draft-length result
+
+At concurrency one, increasing the calibrated NVFP4 drafter from `D=8` to `D=16` improved pooled whole-request completion throughput from **47.55 to 56.60 tok/s**, or **+19.04%**.
+
+| Draft length | Pooled whole-request tok/s | Median row tok/s | Median TTFT | Quality |
+|---:|---:|---:|---:|---:|
+| 4 | 33.76 | 35.05 | 0.191 s | 8/8 |
+| 6 | 44.06 | 48.43 | 0.199 s | 8/8 |
+| 8 | 47.55 | 51.26 | 0.194 s | 8/8 |
+| 12 | 54.99 | 60.70 | 0.212 s | 8/8 |
+| **16** | **56.60** | **63.00** | **0.208 s** | **8/8** |
+
+- D=16 pooled improvement over D=8: **+19.04%**
+- D=16 median-row improvement over D=8: **+22.91%**
+- Median TTFT change: **0.194 s → 0.208 s**
+- DFlash verification and the ModelOpt NVFP4 path were active at every depth
+- Runtime errors: **0**
+- Host and container swap growth: **0 bytes**
+
+See [`evidence/dflash2-depth-sweep-gb10.json`](evidence/dflash2-depth-sweep-gb10.json) for the machine-readable depth table.
+
+## Calibrated drafter comparison
 
 At concurrency one, replacing only the original BF16 DFlash2 drafter with `maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal` improved pooled whole-request completion throughput from **44.58 to 47.99 tok/s**, or **+7.67%**.
 
@@ -49,7 +70,8 @@ Only **15/27** paired outputs were byte-identical. This limits the evidence clai
 ## Exact stack
 
 - Target: `RadixArk/Qwen3.8-27B-NVFP4` at `52d1adc5f38aa5ebf099c29ed7025ba34cfbb854`
-- Draft: `z-lab/Qwen3.8-27B-DFlash2` at `50307d4c4cde6860d4eee73e2547cd786fe8e8a4`
+- Default draft: `maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal` at `bd7a934213c47a9e7ef69eef36bb3325f47fd1f1`, ModelOpt FP4, `D=16`
+- Rollback draft: `z-lab/Qwen3.8-27B-DFlash2` at `50307d4c4cde6860d4eee73e2547cd786fe8e8a4`
 - Base image: `lmsysorg/sglang@sha256:febfb971c7352570fc445c466ebd6ffc9d896024958e544a60f2137fd85856b1`
 - Hardware: one NVIDIA DGX Spark or equivalent GB10, 128 GB unified memory
 - Context exercised by the recipe: 262,144-token allocation, bounded benchmark prompts
@@ -83,6 +105,15 @@ Set `HF_TOKEN` when required by your Hub rate limits.
 Launch the default DFlash2 mode:
 
 ```bash
+MODEL_DIR=/path/to/target/snapshot \
+DRAFT_DIR=/path/to/calibrated-nvfp4-draft/snapshot \
+./scripts/serve.sh
+```
+
+Keep the calibrated drafter but return to `D=8` explicitly:
+
+```bash
+DRAFT_TOKENS=8 \
 MODEL_DIR=/path/to/target/snapshot \
 DRAFT_DIR=/path/to/calibrated-nvfp4-draft/snapshot \
 ./scripts/serve.sh
