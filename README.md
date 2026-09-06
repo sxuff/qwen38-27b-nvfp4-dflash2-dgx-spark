@@ -2,7 +2,7 @@
 
 A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. The calibrated NVFP4 DFlash2 drafter is the default. The original BF16 drafter and no-spec mode remain explicit rollback options.
 
-![Qwen3.8-27B DFlash2 result on one DGX Spark](assets/qwen38-dflash2-result-v2.png)
+![Calibrated NVFP4 DFlash2 drafter result on one GB10](assets/qwen38-nvfp4-drafter-result.png)
 
 ## Calibrated drafter result
 
@@ -21,6 +21,8 @@ The matched study used 24 requests per arm across six fresh launches in `B1 C1 C
 This is one small single-GB10 suite. The result is workload-specific and does not establish universal quality preservation.
 
 ## Historical DFlash2 comparison
+
+![Historical no-spec versus original BF16 DFlash2 result](assets/qwen38-dflash2-result-v2.png)
 
 One fixed-order paired sweep used 27 requests per arm: three repetitions across nine deterministic fixtures. Six fixture families, 18 rows per arm, formed the performance aggregate.
 
