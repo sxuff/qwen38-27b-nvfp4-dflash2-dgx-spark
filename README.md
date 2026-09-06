@@ -22,6 +22,8 @@ This is one small single-GB10 suite. The result is workload-specific and does no
 
 ## Historical DFlash2 comparison
 
+> **Different benchmark. Do not compare 57.11 tok/s below with 47.99 tok/s above.** The historical card reports the median per-request rate on an older fixture mix. The calibrated-drafter study reports pooled throughput on a newer natural-task suite. On that same newer suite, the median per-request result was **49.96 tok/s BF16 → 52.50 tok/s NVFP4 (+5.09%)**.
+
 ![Historical no-spec versus original BF16 DFlash2 result](assets/qwen38-dflash2-result-v2.png)
 
 One fixed-order paired sweep used 27 requests per arm: three repetitions across nine deterministic fixtures. Six fixture families, 18 rows per arm, formed the performance aggregate.
