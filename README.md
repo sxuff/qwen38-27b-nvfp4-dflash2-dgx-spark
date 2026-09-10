@@ -25,70 +25,17 @@ On the same frozen 27 request payloads, the current default recipe measured **71
 
 This is a measured recipe-version comparison collected in separate sessions, not a single-variable ablation or a variance estimate. The runtime image, draft artifact and quantization, DFlash depth, Mamba pool, and server-seed pinning changed together. See [`evidence/recipe-refresh-gb10.json`](evidence/recipe-refresh-gb10.json) for all 27 row hashes and exact rates.
 
-## Draft-length result
+## Supporting evidence
 
-![Calibrated NVFP4 DFlash2 drafter result on one GB10](assets/qwen38-nvfp4-drafter-result.png)
+The current recipe result above is the README headline. Earlier experiments remain available as supporting evidence, but they use different protocols and are intentionally not displayed as competing result cards:
 
-At concurrency one, increasing the calibrated NVFP4 drafter from `D=8` to `D=16` improved pooled whole-request completion throughput from **47.55 to 56.60 tok/s**, or **+19.04%**.
+- [`evidence/dflash2-depth-sweep-gb10.json`](evidence/dflash2-depth-sweep-gb10.json): calibrated NVFP4 drafter depth sweep
+- [`evidence/nvfp4-drafter-gb10.json`](evidence/nvfp4-drafter-gb10.json): matched original-BF16 versus calibrated-NVFP4 drafter study
+- [`results/summary.json`](results/summary.json): historical no-spec versus original DFlash2 study
+- [`evidence/public-default-validation.json`](evidence/public-default-validation.json): generation-tested current default and restoration receipt
+- [`evidence/prose-checker-results.json`](evidence/prose-checker-results.json): frozen lexical-checker disagreement receipts
 
-| Draft length | Pooled whole-request tok/s | Median row tok/s | Median TTFT | Quality |
-|---:|---:|---:|---:|---:|
-| 4 | 33.76 | 35.05 | 0.191 s | 8/8 |
-| 6 | 44.06 | 48.43 | 0.199 s | 8/8 |
-| 8 | 47.55 | 51.26 | 0.194 s | 8/8 |
-| 12 | 54.99 | 60.70 | 0.212 s | 8/8 |
-| **16** | **56.60** | **63.00** | **0.208 s** | **8/8** |
-
-- D=16 pooled improvement over D=8: **+19.04%**
-- D=16 median-row improvement over D=8: **+22.91%**
-- Median TTFT change: **0.194 s → 0.208 s**
-- DFlash verification and the ModelOpt NVFP4 path were active at every depth
-- Runtime errors: **0**
-- Host and container swap growth: **0 bytes**
-
-See [`evidence/dflash2-depth-sweep-gb10.json`](evidence/dflash2-depth-sweep-gb10.json) for the machine-readable depth table.
-
-## Calibrated drafter comparison
-
-At concurrency one, replacing only the original BF16 DFlash2 drafter with `maurienne-ai/Qwen3.8-27B-DFlash2-NVFP4-RTNcal` improved pooled whole-request completion throughput from **44.58 to 47.99 tok/s**, or **+7.67%**.
-
-- Median paired improvement: **+9.25%**
-- Interleaved period ratios: **1.062x, 1.071x, 1.096x**
-- Median TTFT: **0.202 s → 0.192 s**
-- Runtime errors: **0**
-- Host swap growth: **0 bytes**
-- Experiment-container swap: **0 bytes**
-- Executable Python, structured JSON, required tool calls, and native vision passed in all six launches
-
-The matched study used 24 requests per arm across six fresh launches in `B1 C1 C2 B2 B3 C3` order. Target, runtime image, context, KV precision, recurrent-state precision, draft length, scheduler, request payloads, and sampler were fixed. See [`evidence/nvfp4-drafter-gb10.json`](evidence/nvfp4-drafter-gb10.json) for the machine-readable comparison and [`evidence/public-default-validation.json`](evidence/public-default-validation.json) for the generation-tested default profile and rollback receipt.
-
-This is one small single-GB10 suite. The result is workload-specific and does not establish universal quality preservation.
-
-## Historical DFlash2 comparison
-
-> **Different benchmark. Do not compare 57.11 tok/s below with 47.99 tok/s above.** The historical card reports the median per-request rate on an older fixture mix. The calibrated-drafter study reports pooled throughput on a newer natural-task suite. On that same newer suite, the median per-request result was **49.96 tok/s BF16 → 52.50 tok/s NVFP4 (+5.09%)**.
-
-![Historical no-spec versus original BF16 DFlash2 result](assets/qwen38-dflash2-result-v2.png)
-
-One fixed-order paired sweep used 27 requests per arm: three repetitions across nine deterministic fixtures. Six fixture families, 18 rows per arm, formed the performance aggregate.
-
-| Mode | Median whole-request completion rate | Automatic quality | Exact paired outputs |
-|---|---:|---:|---:|
-| No spec | 12.34 tok/s | 24/27 | 15/27 cross-arm |
-| DFlash2 | **57.11 tok/s** | 24/27 | 15/27 cross-arm |
-
-- Aggregate median ratio: **4.63x**
-- DFlash2 final acceptance length: **3.95 tokens**
-- DFlash2 final acceptance rate: **42.14%**
-- Exact request payloads: **27/27 pairs**
-- Minimum host `MemAvailable`: **29.66 GiB no-spec**, **27.59 GiB DFlash2**
-- Swap growth during both measured arms: **0 bytes**
-
-The tok/s metric is completion tokens divided by whole request wall time, including prefill and first-token latency. It is not post-first-token decode speed.
-
-The frozen quality gate did not pass because its lexical prose checker rejected all three prose rows in both arms. The checker accepted the requested three-sentence structure and the `draft`, `target`, verification, and throughput concepts, but its literal substring rules did not accept `increasing` for `increase` or `without altering` for `preserv`. The original six outputs, hashes, and term-by-term predicate decisions are published in [`evidence/prose-checker-results.json`](evidence/prose-checker-results.json) so readers can inspect them directly. The frozen result remains **24/27**, not 27/27. Code, JSON, math, reasoning, tools, and exact-copy checks passed in both arms.
-
-Only **15/27** paired outputs were byte-identical. This limits the evidence claim: the repository does not claim exact numerical equivalence or broad quality parity. DFlash2 remains the default serving mode; no-spec is retained as the benchmark control and fallback.
+See [`REPORT.md`](REPORT.md) for the complete historical measurements and their separate metric boundaries.
 
 ## Exact stack
 
@@ -99,7 +46,7 @@ Only **15/27** paired outputs were byte-identical. This limits the evidence clai
 - Hardware: one NVIDIA DGX Spark or equivalent GB10, 128 GB unified memory
 - Context exercised by the recipe: 262,144-token allocation, bounded benchmark prompts
 - Scheduler ceiling: 10 requests, backed by 50 Mamba state slots. The pinned runtime reports five slots per request for this DFlash2 `extra_buffer` path
-- Static memory fraction: 0.70. Raise it only after a local memory qualification. MiaAI-Lab's 0.90 profile uses a different dense-BF16-head target
+- Static memory fraction: 0.70. MiaAI-Lab's current main profile uses a different speculative path and Mamba strategy, so its memory settings are not treated as interchangeable.
 - Container memory: 110 GiB with container swap disabled
 
 A separate post-study concurrency smoke exercised the hardened 50-slot profile with 10 simultaneous requests. The runtime reported `max_running_requests=10` without a Mamba-cap warning; all 10 requests completed, producing 5,120 tokens in 35.03 seconds, or 146.14 aggregate tok/s. This is an operational smoke on one synthetic prompt, not part of the primary paired benchmark.
