@@ -1,4 +1,19 @@
-# Measured comparison
+# Current recipe comparison
+
+- Historical original SGLang + BF16 DFlash2 D=8: **57.11 tok/s** median whole-request completion rate
+- Current SGLang + calibrated Maurienne NVFP4 DFlash2 D=16: **71.50 tok/s**
+- Recipe-version increase: **25.19%**
+- Frozen request payload matches: **27/27**
+- Frozen quality: **24/27 historical**, **24/27 current**
+- Exact visible outputs: **21/27**
+- Runtime errors: **0** in both versions
+- Maximum host swap growth: **0 bytes** in both versions
+
+The comparison uses the same target revision, hardware class, 27 frozen request payloads, sampler, FP8 KV, BF16 recurrent state, and `mem_fraction_static=0.70`. It was collected in separate sessions and several deployment variables changed together, so it is a measured recipe-version result rather than a single-variable ablation or variance estimate. MiaAI-Lab established the related single-GB10 SGLang scaffold and concurrency-aware GDN/Mamba pool pattern; its current main profile uses native MTP/EAGLE rather than this repository's calibrated DFlash2 path.
+
+See `evidence/recipe-refresh-gb10.json` for exact rates and all 27 output-hash comparisons.
+
+# Historical measured comparison
 
 - no-spec median end-to-end completion rate: **12.34 tok/s**
 - DFlash2 median end-to-end completion rate: **57.11 tok/s**

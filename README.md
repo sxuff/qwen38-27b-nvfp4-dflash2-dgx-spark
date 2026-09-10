@@ -2,9 +2,32 @@
 
 A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. The calibrated NVFP4 DFlash2 drafter with `D=16` is the default. `D=8`, the original BF16 drafter, and no-spec mode remain explicit rollback options.
 
-![Calibrated NVFP4 DFlash2 drafter result on one GB10](assets/qwen38-nvfp4-drafter-result.png)
+This repository is a DFlash2 operating-point refinement of [MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark](https://github.com/MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark), which established the single-GB10 SGLang scaffold and concurrency-aware GDN/Mamba pool pattern. MiaAI-Lab's current main profile uses native MTP/EAGLE. This recipe uses the calibrated Maurienne NVFP4 DFlash2 drafter at `D=16`.
+
+## Current recipe result
+
+![Historical versus current Qwen3.8-27B DFlash2 recipe on one NVIDIA GB10](assets/qwen38-recipe-refresh-gb10.png)
+
+On the same frozen 27 request payloads, the current default recipe measured **71.50 tok/s** median whole-request completion throughput versus **57.11 tok/s** for the historical original DFlash2 recipe, a **25.19% increase**.
+
+| Recipe version | Drafter | D | Median whole-request tok/s | Frozen quality | Exact visible outputs |
+|---|---|---:|---:|---:|---:|
+| Historical original | z-lab BF16 DFlash2 | 8 | 57.11 | 24/27 | reference |
+| **Current default** | **Maurienne calibrated NVFP4 DFlash2** | **16** | **71.50** | **24/27** | **21/27 vs historical** |
+
+- Hardware: one NVIDIA GB10
+- Target: the same stock `RadixArk/Qwen3.8-27B-NVFP4` revision
+- Frozen request payload matches: **27/27**
+- Performance denominator: **18 rows** across six fixture families
+- Runtime errors: **0** in both recipe versions
+- Host swap growth: **0 bytes** in both recipe versions
+- Minimum host `MemAvailable`: **27.59 GiB historical**, **27.59 GiB current**
+
+This is a measured recipe-version comparison collected in separate sessions, not a single-variable ablation or a variance estimate. The runtime image, draft artifact and quantization, DFlash depth, Mamba pool, and server-seed pinning changed together. See [`evidence/recipe-refresh-gb10.json`](evidence/recipe-refresh-gb10.json) for all 27 row hashes and exact rates.
 
 ## Draft-length result
+
+![Calibrated NVFP4 DFlash2 drafter result on one GB10](assets/qwen38-nvfp4-drafter-result.png)
 
 At concurrency one, increasing the calibrated NVFP4 drafter from `D=8` to `D=16` improved pooled whole-request completion throughput from **47.55 to 56.60 tok/s**, or **+19.04%**.
 
@@ -164,9 +187,9 @@ This is one-host operational evidence. It does not establish universal DFlash2 s
 
 ## Related work and attribution
 
-- [MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark](https://github.com/MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark) established the GB10 serving scaffold, DFlash2 compatibility-overlay lineage, quantized-`lm_head` handling, and workload-dependent measurement notes used here. The compatibility lineage is pinned as `c90d8c34cf795185ee8de736b7ded9bca3fe0de1`.
-- MiaAI-Lab's current default target is `RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead`. This recipe and its measurements use the fully packed stock `RadixArk/Qwen3.8-27B-NVFP4`, so the reported rates are not directly interchangeable.
-- MiaAI-Lab's canonical DFlash table reports a two-call net-decode estimate. This repository reports whole-request completion tok/s from matched request payloads. Treat them as different clocks.
+- [MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark](https://github.com/MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark) established the single-GB10 SGLang scaffold and concurrency-aware GDN/Mamba pool pattern used here.
+- MiaAI-Lab's current main profile uses the stock `RadixArk/Qwen3.8-27B-NVFP4` target with native MTP/EAGLE, FP8 KV, BF16 recurrent state, and ten running requests. This repository keeps that target and hardware lane but uses DFlash2 with the calibrated Maurienne NVFP4 drafter at `D=16`.
+- The compatibility overlay remains pinned as `c90d8c34cf795185ee8de736b7ded9bca3fe0de1`. Benchmark clocks from other repositories are not treated as interchangeable with this repository's whole-request completion metric.
 - SGLang provides the serving runtime and DFlash2 integration. z-lab/Inco AI provides the DFlash2 draft. RadixArk provides the NVFP4 target.
 - `maurienne-ai` published and calibrated the ModelOpt NVFP4 drafter used by the default profile. The original DFlash2 architecture and source draft remain credited to Z Lab / Inco AI.
 
