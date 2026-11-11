@@ -1,5 +1,13 @@
 # Qwen3.8-27B stock NVFP4 + DFlash2 on one DGX Spark
 
+## Run it
+
+```bash
+git clone https://github.com/sxuff/qwen38-27b-nvfp4-dflash2-dgx-spark && cd qwen38-27b-nvfp4-dflash2-dgx-spark && ./run.sh
+```
+
+Expected: **71.50 tok/s** median whole-request completion rate, single stream, prefill included (Maurienne NVFP4 drafter, D=16) — receipt: [`evidence/recipe-refresh-gb10.json`](evidence/recipe-refresh-gb10.json)
+
 A pinned SGLang recipe for serving the stock `RadixArk/Qwen3.8-27B-NVFP4` checkpoint with DFlash2 speculative decoding on one NVIDIA GB10 system. The calibrated NVFP4 DFlash2 drafter with `D=16` is the default. `D=8`, the original BF16 drafter, and no-spec mode remain explicit rollback options.
 
 This repository is a DFlash2 operating-point refinement of [MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark](https://github.com/MiaAI-Lab/Qwen3.8-27B-SGLang-DGX-Spark), which established the single-GB10 SGLang scaffold and concurrency-aware GDN/Mamba pool pattern. MiaAI-Lab's current main profile uses native MTP/EAGLE. This recipe uses the calibrated Maurienne NVFP4 DFlash2 drafter at `D=16`.
